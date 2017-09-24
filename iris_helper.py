@@ -45,6 +45,7 @@ class Iris_helper():
         pulls IID and summary line from all open tickets in IRIS Abuse@ queue
         :return:
         """
+        #ToDo finish query
         query = "SELECT iris_incidentID, {column name for "Summary" line} FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND iris_statusID = 1"
@@ -59,6 +60,7 @@ class Iris_helper():
         return incidents
 
 
+    #ToDo can these two functions be done or do items need to be printed to screen?
     def ticket_close(self):
         #ToDo close tickets with note stating unworkable ticket
         pass

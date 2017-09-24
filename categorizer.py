@@ -10,6 +10,8 @@ def cleanup():
 
 def categorize():
     #ToDo logic to check summary for keywords and create lists of IIDs to "move"
+
+    #ToDo setup regex seperated by category for use in this function
     pass
 
 #ToDo setup script to run
