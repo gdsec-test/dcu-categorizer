@@ -45,19 +45,12 @@ class Iris_helper():
         pulls IID and summary line from all open tickets in IRIS Abuse@ queue
         :return:
         """
-        #ToDo finish query
+        #ToDo finish query and running logic
         query = "SELECT iris_incidentID, {column name for "Summary" line} FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND iris_statusID = 1"
 
-        cursor = self.cnxn.cursor()
-        query = query.strip()
-        cursor.execute(query)
-        incidents = cursor.fetchall()
-        cursor.close()
-        self.cnxn.close()
-
-        return incidents
+        pass
 
 
     #ToDo can these two functions be done or do items need to be printed to screen?
