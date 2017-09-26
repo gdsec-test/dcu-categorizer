@@ -11,24 +11,17 @@ class Iris_helper():
         self.cnxn.timeout = 0
 
 
-
-    def trash_man(self):
+    def trash_man(self, address):
         """
         Iterates through list of "like" email addresses and returns IIDs for use in closure query
         :return: list of tupels, example: [(33221396, ), (33221383, )]
         """
 
-
-        address = ['sh.baidu.com', 'notices.nr-online.com', 'legal-notification.com', 'woody.ch', 'justdeals.com',
-                   'certifiedmart.com', 'marcon-media.de', 'newsletter.kopp-verlag.de', 'brandshop.com', 'law360.com',
-                   'ogrupo.org.br', 'domainerschoice.com', '163.com', 'peakindustry.com', 'woody.ch', 'foxmail.com',
-                   'sina.cn', 'sina.com', 'appleitunesguide.com', '@notice.bizcn.com']
-
         query = "SELECT iris_incidentID FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND OriginalEmailAddress LIKE '%@" + address + "' and iris_statusID = 1"
 
-        #ToDo For loop to iterate addresses though query and return IIDs
+
 
         cursor = self.cnxn.cursor()
         query = query.strip()
@@ -46,7 +39,7 @@ class Iris_helper():
         :return:
         """
         #ToDo finish query and running logic
-        query = "SELECT iris_incidentID, {column name for "Summary" line} FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
+        query = "SELECT iris_incidentID, IncidentDescription FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND iris_statusID = 1"
 
