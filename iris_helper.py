@@ -1,14 +1,15 @@
 import pyodbc
+from settings import dbstring
 
-class IrisHelper():
 
-    def __init__(self, dbstring):
+class IrisHelper:
+
+    def __init__(self):
         self.dbstring = dbstring
         # connection to DB server
         self.cnxn = pyodbc.connect(self.dbstring)
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
-
 
     def trash_man(self, address):
         """
@@ -29,7 +30,6 @@ class IrisHelper():
 
         return incidents
 
-
     def data_pull(self):
         """
         pulls IID and summary line from all open tickets in IRIS Abuse@ queue
@@ -48,12 +48,11 @@ class IrisHelper():
 
         return incidents
 
-
-    #ToDo can these two functions be done or do items need to be printed to screen?
+    # TODO can these two functions be done or do items need to be printed to screen?
     def ticket_close(self):
-        #ToDo close tickets with note stating unworkable ticket
+        # TODO close tickets with note stating unworkable ticket
         pass
 
     def ticket_move(self):
-        #ToDo update tickets iris_serviceID to whatever the new category is
+        # TODO update tickets iris_serviceID to whatever the new category is
         pass
