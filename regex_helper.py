@@ -7,11 +7,11 @@ class List_helper():
     def reg_logic(self, o_list, k_list):
         results = []
         for d in o_list:
-            for i in k_list:
-                if re.match(i, str(d[1])):
-                    results.append(d[0])
-                    o_list.remove(d)
-                else:
-                    print 'No Match ' + str(d) + ' on pattern ' + i
+            if d[1] in k_list:
+                print '{} is in {}'.format(d, k_list)
+                results.append(d[0])
+                o_list.remove(d)
+            else:
+                print 'No Match {} on pattern {}'.format(str(d), k_list)
         return results, o_list
 
