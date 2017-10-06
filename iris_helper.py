@@ -1,6 +1,5 @@
 import pyodbc
 
-
 class Iris_helper():
 
     def __init__(self, dbstring):
