@@ -1,8 +1,8 @@
-from iris_helper import Iris_helper
+from iris_helper import IrisHelper
 from settings import dbstring
-from regex_helper import List_helper
+from regex_helper import ListHelper
 
-#i = Iris_helper(dbstring)
+#i = IrisHelper(dbstring)
 
 
 def cleanup():
@@ -21,7 +21,7 @@ def cleanup():
 
 def categorize():
 
-    l = List_helper()
+    l = ListHelper()
 
     phish_keys = ['phishing', 'phish']
     malware_keys = ['malware', 'virus']

@@ -1,17 +1,10 @@
-import re
+class ListHelper():
 
-
-class List_helper():
-
-    # o-list is a list of tuples, containing iris_id as key and abuse type as value
-    def reg_logic(self, o_list, k_list):
+    # iris_incidents is a list of tuples, containing iris_id as key and abuse type as value
+    def reg_logic(self, iris_incidents, abuse_keywords):
         results = []
-        for d in o_list:
-            for i in k_list:
-                if re.match(i, str(d[1])):
-                    results.append(d[0])
-                    o_list.remove(d)
-                else:
-                    print 'No Match ' + str(d) + ' on pattern ' + i
-        return results, o_list
-
+        for iris_subject in iris_incidents:
+            if iris_subject[1] in abuse_keywords:
+                results.append(iris_subject[0])
+                iris_incidents.remove(iris_subject)
+        return results, iris_incidents
