@@ -3,6 +3,7 @@ import re
 
 class List_helper():
 
+    # o-list is a list of tuples, containing iris_id as key and abuse type as value
     def reg_logic(self, o_list, k_list):
         results = []
         for d in o_list:
