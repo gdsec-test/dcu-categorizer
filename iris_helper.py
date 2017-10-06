@@ -18,7 +18,7 @@ class IrisHelper():
 
         query = "SELECT iris_incidentID FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
-                "AND OriginalEmailAddress LIKE '%@" + address + "' and iris_statusID = 1"
+                "AND OriginalEmailAddress LIKE '%@{}' and iris_statusID = 1".format(address)
 
         cursor = self.cnxn.cursor()
         query = query.strip()
