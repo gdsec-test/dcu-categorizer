@@ -80,3 +80,5 @@ class IrisHelper:
         self.cnxn.close()
 
         return result
+
+#TODO Checking some stuff
