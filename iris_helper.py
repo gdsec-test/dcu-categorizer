@@ -57,6 +57,13 @@ class IrisHelper:
         pass
 
     def ticket_move(self, iid, serviceid):
+        """
+        This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
+        stored procedure
+        :param iid:
+        :param serviceid:
+        :return:
+        """
 
         query = """\
         SET CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON;
@@ -80,5 +87,3 @@ class IrisHelper:
         self.cnxn.close()
 
         return result
-
-#TODO testing Slack integration
