@@ -81,4 +81,4 @@ class IrisHelper:
 
         return result
 
-#TODO Checking some stuff
+#TODO testing Slack integration
