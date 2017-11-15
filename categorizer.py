@@ -1,21 +1,30 @@
 from iris_helper import IrisHelper
 from regex_helper import ListHelper
+from listings import garbagedomains, leodomains
 
 i = IrisHelper()
 
 
 def cleanup():
-    address = ['sh.baidu.com', 'notices.nr-online.com', 'legal-notification.com', 'woody.ch', 'justdeals.com',
-               'certifiedmart.com', 'marcon-media.de', 'newsletter.kopp-verlag.de', 'brandshop.com', 'law360.com',
-               'ogrupo.org.br', 'domainerschoice.com', '163.com', 'peakindustry.com', 'woody.ch', 'foxmail.com',
-               'sina.cn', 'sina.com', 'appleitunesguide.com', 'notice.bizcn.com']
     garbage = []
-    for a in address:
-        trash = i.trash_man(a)
+    cleaning = garbagedomains
+    for a in cleaning:
+        trash = i.ticket_finder(a)
         for t in trash:
             garbage.append(t[0])
 
-    print garbage
+    return garbage
+
+
+def leomove():
+    leo = []
+    moving = leodomains
+    for a in moving:
+        sort = i.ticket_finder(a)
+        for t in sort:
+            leo.append(t[0])
+
+    return leo
 
 
 def categorize():
@@ -23,10 +32,10 @@ def categorize():
     l = ListHelper()
 
     phish_keys = ['phishing', 'phish']
-    malware_keys = ['malware', 'virus']
-    netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted']
-    spam_keys = ['spam', 'spoof', 'spoofed']
-    garbage_keys = ['copyright', 'trademark', 'infringement']
+    # malware_keys = ['malware', 'virus']
+    # netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted']
+    # spam_keys = ['spam', 'spoof', 'spoofed']
+    # transfer_keys = ['copyright', 'trademark', 'infringement']
 
     data = [(33289088, u'FRAUD and HARASSMENT that Funds ISIS'),
             (33289417, u'Fraud domain http://www.holdingsbrighton.com'),
