@@ -42,12 +42,7 @@ class IrisHelper:
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND iris_statusID = 1"
 
-        cursor = self.cnxn.cursor()
-        query = query.strip()
-        cursor.execute(query)
-        incidents = cursor.fetchall()
-        cursor.close()
-        self.cnxn.close()
+        incidents = self._iris_db_connect(query)
 
         return incidents
 
@@ -73,17 +68,21 @@ class IrisHelper:
         SELECT @b_checkdatepass AS the_output;"""
 
         params = (iid, serviceid)
-        cursor = self.cnxn.cursor()
-        query = query.strip()
-        cursor.execute(query, params)
-        rows = cursor.fetchall()
+
+        rows = self._iris_db_connect(query, params)
         if rows[0][0]:
             result = True
         else:
             result = False
 
+        return result
+
+    def _iris_db_connect(self, query, params=None):
+        cursor = self.cnxn.cursor()
+        query = query.strip()
+        cursor.execute(query, params)
+        data = cursor.fetchall()
         cursor.commit()
         cursor.close()
         self.cnxn.close()
-
-        return result
+        return data
