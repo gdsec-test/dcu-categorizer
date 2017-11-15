@@ -15,7 +15,7 @@ def cleanup():
         for t in trash:
             garbage.append(t[0])
 
-    print garbage
+    return garbage
 
 
 def leomove():
@@ -122,7 +122,7 @@ def leomove():
         for t in sort:
             leo.append(t[0])
 
-    print leo
+    return leo
 
 
 def categorize():
@@ -133,7 +133,7 @@ def categorize():
     # malware_keys = ['malware', 'virus']
     # netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted']
     # spam_keys = ['spam', 'spoof', 'spoofed']
-    # garbage_keys = ['copyright', 'trademark', 'infringement']
+    # transfer_keys = ['copyright', 'trademark', 'infringement']
 
     data = [(33289088, u'FRAUD and HARASSMENT that Funds ISIS'),
             (33289417, u'Fraud domain http://www.holdingsbrighton.com'),
