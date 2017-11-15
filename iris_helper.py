@@ -14,7 +14,7 @@ class IrisHelper:
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
 
-    def trash_man(self, address):
+    def ticket_finder(self, address):
         """
         Iterates through list of "like" email addresses and returns IIDs for use in closure query
         :return: list of tupels, example: [(33221396, ), (33221383, )]
