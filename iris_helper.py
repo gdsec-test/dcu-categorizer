@@ -1,5 +1,7 @@
 import pyodbc
 import os
+import suds
+import logging
 from settings import config_by_name
 
 settings = config_by_name[os.getenv('sysenv') or 'dev']
@@ -7,12 +9,16 @@ settings = config_by_name[os.getenv('sysenv') or 'dev']
 
 class IrisHelper:
 
-    def __init__(self):
+    def __init__(self, wsdl):
         self.dbstring = settings.dbstring
         # connection to DB server
         self.cnxn = pyodbc.connect(self.dbstring)
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
+        self._client = suds.client.Client(wsdl)
+        self._logger = logging.getLogger(__name__)
+        self.closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
+
 
     def ticket_finder(self, address):
         """
@@ -46,10 +52,22 @@ class IrisHelper:
 
         return incidents
 
-    # TODO can these two functions be done or do items need to be printed to screen?
-    def ticket_close(self):
-        # TODO close tickets with note stating unworkable ticket
-        pass
+    def ticket_close(self, incident):
+        """
+        closes tickets with note stating unworkable ticket
+        :param incident:
+        :return:
+        """
+        phishstory_employee_id = 15550
+        try:
+            self._client.service.AddIncidentNote(
+                int(incident),
+                self.closed_note.format(), 'phishtory')
+            self._client.service.QuickCloseIncident(
+                int(incident),
+                phishstory_employee_id,)
+        except Exception as e:
+            self._logger.error("Auto Close failed on IID: {}, {}".format(incident, e))
 
     def ticket_move(self, iid, serviceid):
         """
