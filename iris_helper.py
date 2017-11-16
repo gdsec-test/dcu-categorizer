@@ -4,6 +4,8 @@ from settings import config_by_name
 
 settings = config_by_name[os.getenv('sysenv') or 'dev']
 
+closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
+
 
 class IrisHelper:
 
@@ -46,10 +48,21 @@ class IrisHelper:
 
         return incidents
 
-    # TODO can these two functions be done or do items need to be printed to screen?
-    def ticket_close(self):
-        # TODO close tickets with note stating unworkable ticket
-        pass
+    def ticket_close(self, incident):
+        """
+        closes tickets with note stating unworkable ticket
+        :return: True or Exception
+        """
+        phishstory_employee_id = 15550
+        try:
+            self._client.service.AddIncidentNote(
+                incident,
+                self.closed_note.format, 'phishtory')
+            self._client.service.QuickCloseIncident(
+                int(incident),
+                phishstory_employee_id,)
+        except Exception as e:
+            self._logger.error("Auto Close failed on IID: {}, {}".format(incident, e))
 
     def ticket_move(self, iid, serviceid):
         """
