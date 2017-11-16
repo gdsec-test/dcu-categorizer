@@ -1,11 +1,9 @@
 import os
 
-#ToDo set pwd to environmental variable
-
 
 class DevelopmentAppConfig():
     pwd = os.getenv('DEVIRISPWD') or 'password'
-    dbstring = 'DRIVER={FreeTDS};SERVER=P3DWSQL07\CSS;DATABASE=iris;UID=N2_d338D4B45D0F445;PWD=' + pwd
+    dbstring = 'DRIVER={FreeTDS};SERVER=P3DWSQL07\CSS;DATABASE=iris;UID=N2_d338D4B45D0F445;PWD=' + pwd + ';TDS_VERSION=8.0'
 
 
 class ProductionAppConfig():

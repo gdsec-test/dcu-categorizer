@@ -38,13 +38,23 @@ class IrisHelper:
         pulls IID and summary line from all open tickets in IRIS Abuse@ queue
         :return:
         """
-        query = "SELECT iris_incidentID, IncidentDescription FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK) " \
-                "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
-                "AND iris_statusID = 1"
+        incident_dict = {}
+
+        query = """\
+                SELECT a.iris_incidentID, a.IncidentDescription, b.note FROM [iris].[dbo].[IRISIncidentMain] a WITH(NOLOCK) \
+                JOIN [iris].[dbo].[IRISIncidentNote] b on b.iris_incidentID = a.iris_incidentID \
+                WHERE a.iris_groupID = 489 AND a.iris_serviceID = 220 \
+                AND a.iris_statusID = 1"""
 
         incidents = self._iris_db_connect(query)
 
-        return incidents
+        for incident in incidents:
+            iid = incident[0]
+            subject = incident[1]
+            body = incident[2]
+            incident_dict[iid] = (subject, body)
+
+        return incident_dict
 
     # TODO can these two functions be done or do items need to be printed to screen?
     def ticket_close(self):
@@ -80,7 +90,10 @@ class IrisHelper:
     def _iris_db_connect(self, query, params=None):
         cursor = self.cnxn.cursor()
         query = query.strip()
-        cursor.execute(query, params)
+        if params:
+            cursor.execute(query, params)
+        else:
+            cursor.execute(query)
         data = cursor.fetchall()
         cursor.commit()
         cursor.close()
