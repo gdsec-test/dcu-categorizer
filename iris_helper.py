@@ -51,7 +51,8 @@ class IrisHelper:
     def ticket_close(self, incident):
         """
         closes tickets with note stating unworkable ticket
-        :return: True or Exception
+        :param incident:
+        :return:
         """
         phishstory_employee_id = 15550
         try:
