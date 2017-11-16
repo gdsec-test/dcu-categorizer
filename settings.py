@@ -6,7 +6,7 @@ import os
 class DevelopmentAppConfig():
     pwd = os.getenv('DEVIRISPWD') or 'password'
     dbstring = 'DRIVER={FreeTDS};SERVER=P3DWSQL07\CSS;DATABASE=iris;UID=N2_d338D4B45D0F445;PWD=' + pwd
-    wsdl_url = 'https://iris-ws.int.godaddy.com/iriswebservice.asmx?wsdl'
+    wsdl_url = 'https://iris-ws.dev.int.godaddy.com/iriswebService.asmx?WSDL'
 
 class ProductionAppConfig():
     pwd = os.getenv('IRISPWD') or 'password'
