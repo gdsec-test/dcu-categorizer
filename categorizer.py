@@ -60,6 +60,8 @@ def categorize():
 
     leftovers(close_cat[1])
 
+    i.the_closer()
+
     return True
 
 
