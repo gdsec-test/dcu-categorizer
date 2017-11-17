@@ -61,7 +61,7 @@ class IrisHelper:
         # TODO close tickets with note stating unworkable ticket
         pass
 
-    def ticket_move(self, iid, serviceid):
+    def ticket_move(self, iid, serviceid, eid):
         """
         This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
         stored procedure
@@ -74,10 +74,29 @@ class IrisHelper:
         SET CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON;
         SET IMPLICIT_TRANSACTIONS OFF;
         DECLARE @b_checkdatepass bit;
-        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_groupID = 510, @n_iris_employeeID = 15550, @b_checkdatepass = @b_checkdatepass output;
+        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_groupID = 510, @n_iris_employeeID = ?, @b_checkdatepass = @b_checkdatepass output;
         SELECT @b_checkdatepass AS the_output;"""
 
-        params = (iid, serviceid)
+        params = (iid, serviceid, eid)
+
+        rows = self._iris_db_connect(query, params)
+        if rows[0][0]:
+            result = True
+        else:
+            result = False
+
+        return result
+
+    def ticket_update(self, iid, eid):
+
+        query = """\
+            SET CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON;
+            SET IMPLICIT_TRANSACTIONS OFF;
+            DECLARE @b_checkdatepass bit;
+            EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_employeeID = ?, @b_checkdatepass = @b_checkdatepass output;
+            SELECT @b_checkdatepass AS the_output;"""
+
+        params = (iid, eid)
 
         rows = self._iris_db_connect(query, params)
         if rows[0][0]:

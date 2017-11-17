@@ -6,23 +6,19 @@ class ListHelper():
     # iris_incidents is a list of tuples, containing iris_id as key and abuse type as value
     def reg_logic(self, iris_incidents, abuse_keywords):
         results = []
-        print iris_incidents
-        for incident in iris_incidents:
-            iid = incident
-            print 'iid' + iid
-            subject = incident.get(iid[1])
-            print subject
-            body = incident.get(iid[2])
+        for incident, (subject, body) in iris_incidents.items():
             for word in abuse_keywords:
-                match = re.search(word, subject)
+                match = re.search(word, subject.lower())
                 if match:
-                    results.append(iid)
-                    iris_incidents.remove(incident)
+                    results.append(incident)
+                    iris_incidents.pop(incident)
+                    break
                 else:
-                    match = re.search(word, body)
+                    match = re.search(word, body.lower())
                     if match:
-                        results.append(iid)
-                        iris_incidents.remove(incident)
+                        results.append(incident)
+                        iris_incidents.pop(incident)
+                        break
                     else:
                         pass
         return results, iris_incidents
