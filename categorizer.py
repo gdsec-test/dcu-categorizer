@@ -43,19 +43,19 @@ class Categorizer:
         spam_keys = ['spam', 'spoof', 'spoofed']
         close_keys = ['copyright', 'trademark', 'infringement']
 
-        phish_cat = l.reg_logic(tickets, phish_keys)
+        phish_cat = self.l.reg_logic(tickets, phish_keys)
         self.phish_move(phish_cat[0])
 
-        mal_cat = l.reg_logic(phish_cat[1], malware_keys)
+        mal_cat = self.l.reg_logic(phish_cat[1], malware_keys)
         self.mal_move(mal_cat[0])
 
-        net_cat = l.reg_logic(mal_cat[1], netabuse_keys)
+        net_cat = self.l.reg_logic(mal_cat[1], netabuse_keys)
         self.net_move(net_cat[0])
 
-        spam_cat = l.reg_logic(net_cat[1], spam_keys)
+        spam_cat = self.l.reg_logic(net_cat[1], spam_keys)
         self.spam_move(spam_cat[0])
 
-        close_cat = l.reg_logic(spam_cat[1], close_keys)
+        close_cat = self.l.reg_logic(spam_cat[1], close_keys)
         for ticket in close_cat[0]:
             self.i.ticket_close(ticket)
 
