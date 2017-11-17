@@ -58,6 +58,8 @@ def categorize():
     for ticket in close_cat[0]:
         i.ticket_close(ticket)
 
+    leftovers(close_cat[1])
+
     return True
 
 

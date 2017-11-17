@@ -24,12 +24,7 @@ class IrisHelper:
                 "WHERE iris_groupID in (411) AND iris_serviceID = 228" \
                 "AND OriginalEmailAddress LIKE '%@{}' and iris_statusID = 1".format(address)
 
-        cursor = self.cnxn.cursor()
-        query = query.strip()
-        cursor.execute(query)
-        incidents = cursor.fetchall()
-        cursor.close()
-        self.cnxn.close()
+        incidents = self._iris_db_connect(query)
 
         return incidents
 
@@ -38,6 +33,7 @@ class IrisHelper:
         pulls IID and summary line from all open tickets in IRIS Abuse@ queue
         :return:
         """
+
         incident_dict = {}
 
         query = """\
@@ -107,6 +103,7 @@ class IrisHelper:
         return result
 
     def _iris_db_connect(self, query, params=None):
+
         cursor = self.cnxn.cursor()
         query = query.strip()
         if params:
@@ -116,5 +113,9 @@ class IrisHelper:
         data = cursor.fetchall()
         cursor.commit()
         cursor.close()
-        self.cnxn.close()
+
         return data
+
+    def the_closer(self):
+
+        self.cnxn.close()
