@@ -1,3 +1,2 @@
 pyodbc
 suds
-pyyaml

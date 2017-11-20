@@ -11,6 +11,7 @@ class IrisHelper:
 
     def __init__(self):
         self.dbstring = settings.dbstring
+        self._logger = logging.getLogger(__name__)
         # connection to DB server
         try:
             self.cnxn = pyodbc.connect(self.dbstring)
@@ -20,7 +21,6 @@ class IrisHelper:
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
         self._client = suds.client.Client(settings.wsdl_url)
-        self._logger = logging.getLogger(__name__)
         self.closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
 
     def ticket_finder(self, address_list, service_id):
