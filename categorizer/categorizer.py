@@ -70,7 +70,7 @@ class Categorizer:
 
         for ticket in move_list:
             result = self.i.ticket_move(ticket, service_id, eid)
-            if result is True:
+            if result:
                 self._logger.info('Succesfully moved: {}'.format(ticket))
 
     def leftovers(self, update_list, eid):
