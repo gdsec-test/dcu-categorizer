@@ -8,17 +8,16 @@ class ListHelper():
         results = []
         for incident, (subject, body) in iris_incidents.items():
             for word in abuse_keywords:
-                match = re.search(word, subject.lower())
+                match = re.search(word, subject, re.IGNORECASE)
                 if match:
                     results.append(incident)
                     iris_incidents.pop(incident)
                     break
                 else:
-                    match = re.search(word, body.lower())
+                    match = re.search(word, body, re.IGNORECASE)
                     if match:
                         results.append(incident)
                         iris_incidents.pop(incident)
                         break
-                    else:
-                        pass
+
         return results, iris_incidents
