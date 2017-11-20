@@ -12,6 +12,7 @@ class DevelopmentAppConfig():
     spam_service_id = '212' # doesn't exist, set to phishing
     leo_service_id = '215'
     notation_user = 'rduran'
+    phishstory_eid = '15550'
 
 
 class ProductionAppConfig():
@@ -25,6 +26,7 @@ class ProductionAppConfig():
     spam_service_id = '315'
     leo_service_id = '224'
     notation_user = 'phishtory'
+    phishstory_eid = '15550'
 
 config_by_name = {'dev': DevelopmentAppConfig,
                   'prod': ProductionAppConfig

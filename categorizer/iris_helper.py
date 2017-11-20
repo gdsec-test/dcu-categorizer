@@ -12,7 +12,11 @@ class IrisHelper:
     def __init__(self):
         self.dbstring = settings.dbstring
         # connection to DB server
-        self.cnxn = pyodbc.connect(self.dbstring)
+        try:
+            self.cnxn = pyodbc.connect(self.dbstring)
+        except Exception as e:
+            self._logger.error('Connection to IRIS DB failed: {}'.format(e))
+
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
         self._client = suds.client.Client(settings.wsdl_url)
@@ -85,6 +89,7 @@ class IrisHelper:
         stored procedure
         :param iid:
         :param serviceid:
+        :param eid:
         :return:
         """
 

@@ -1,7 +1,7 @@
 import re
 
 
-class ListHelper():
+class ListHelper:
 
     # iris_incidents is a list of tuples, containing iris_id as key and abuse type as value
     def reg_logic(self, iris_incidents, abuse_keywords):
