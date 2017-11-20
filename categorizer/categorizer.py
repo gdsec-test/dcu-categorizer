@@ -74,7 +74,3 @@ class Categorizer:
     def leftovers(self, update_list):
         for ticket in update_list:
             self.i.ticket_update(ticket, '15550')
-
-if __name__ == '__main__':
-    i = Categorizer()
-    i.cleanup()
