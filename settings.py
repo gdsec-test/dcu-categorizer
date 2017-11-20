@@ -13,6 +13,7 @@ class DevelopmentAppConfig():
     leo_service_id = '215'
     notation_user = 'rduran'
     phishstory_eid = '15550'
+    group_id  = '489'
 
 
 class ProductionAppConfig():
@@ -27,6 +28,7 @@ class ProductionAppConfig():
     leo_service_id = '224'
     notation_user = 'phishtory'
     phishstory_eid = '15550'
+    group_id = '411'
 
 config_by_name = {'dev': DevelopmentAppConfig,
                   'prod': ProductionAppConfig
