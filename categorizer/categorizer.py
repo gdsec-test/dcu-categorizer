@@ -18,15 +18,13 @@ class Categorizer:
 
     def cleanup(self):
         incidents = self.i.ticket_finder(garbagedomains, settings.abuse_service_id, settings.group_id)
-        self._logger.info('Completed cleanup function...')
-        self._logger.info('Cleanup tickets: {}'.format(incidents))
+        self._logger.info('Completed cleanup function...\n Cleanup tickets: {}'.format(incidents))
         for incident in incidents:
             self.i.ticket_close(incident)
 
     def leomove(self):
         incidents = self.i.ticket_finder(leodomains, settings.abuse_service_id, settings.group_id)
-        self._logger.info('Completed leomove function...')
-        self._logger.info('leomove tickets: {}'.format(incidents))
+        self._logger.info('Completed leomove function...\n Leomove tickets: {}'.format(incidents))
         for incident in incidents:
             self.i.ticket_move(incident, settings.leo_service_id, 0)
 
@@ -86,7 +84,3 @@ class Categorizer:
     def leftovers(self, update_list, eid):
         for ticket in update_list:
             self.i.ticket_update(ticket, eid)
-
-if __name__ == '__main__':
-    c = Categorizer()
-    c.cleanup()
