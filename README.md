@@ -1,5 +1,9 @@
 # categorizer
 
-This script is intended to reduce the work time needed to zero the Abuse@ IRIS queue.
+Required Sys variables:
 
-The code locates "garbage" tickets for closure and reviews summary lines of all other tickets to match keywords for tickets to be moved.
+DEVIRISPWD
+IRISPWD
+sysenv
+
+
