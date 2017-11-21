@@ -1,6 +1,9 @@
-garbagedomains = '%@sh.baidu.com,%@notices.nr-online.com,%@legal-notification.com,%@woody.ch,%@justdeals.com,%@certifiedmart.com,%@marcon-media.de,%@newsletter.kopp-verlag.de,%@brandshop.com,%@law360.com,%@ogrupo.org.br,%@domainerschoice.com,%@163.com,%@peakindustry.com,%@woody.ch,%@foxmail.com','sina.cn,%@sina.com,%@appleitunesguide.com,%@notice.bizcn.com,%@iibmindia.in'
+garbagedomains = ['sh.baidu.com', 'notices.nr-online.com', 'legal-notification.com', 'woody.ch', 'justdeals.com',
+                  'certifiedmart.com', 'marcon-media.de', 'newsletter.kopp-verlag.de', 'brandshop.com', 'law360.com',
+                  'ogrupo.org.br', 'domainerschoice.com', '163.com', 'peakindustry.com', 'woody.ch', 'foxmail.com',
+                  'sina.cn', 'sina.com', 'appleitunesguide.com', 'notice.bizcn.com', 'iibmindia.in']
 
-"""leodomains = ['essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.midland.on.ca',
+leodomains = ['essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.midland.on.ca',
               'montevideopolice.com', 'pcivil.ba.gov.br', 'ccd.gov.eg', 'police.govt.nz', 'pascosheriff.org',
               'da.lacounty.gov', 'isp.state.il.us', 'cybercrimehelpline.in', 'fremont.gov', 'ksp.policja.gov.pl',
               'ci.irvine.ca.us', 'ci.kennewick.wa.us', 'walthamforest.gov.uk', 'doj.gov.ph', 'loudoun.gov',
@@ -96,4 +99,4 @@ garbagedomains = '%@sh.baidu.com,%@notices.nr-online.com,%@legal-notification.co
               'altatecmonterrey.com', 'pgr.gob.mx', 'westyorkshire.pnn.police.uk', 'maine.gov', 'sunrisefl.gov',
               'arriendosrenaca.cl', 'bryantx.gov', 'pirst.kr', 'politieherko.be', 'douglascounty-ne.gov',
               'ventura.org', 'comcom.govt.nz', 'cityoflewisville.com', 'kohlerpolice.com', 'attorneygeneral.gov',
-              'eastdunbarton.gov.uk', 'rsoc.ru', 'royalbijuterii.ro']"""
+              'eastdunbarton.gov.uk', 'rsoc.ru', 'royalbijuterii.ro']

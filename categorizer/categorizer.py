@@ -1,7 +1,7 @@
 import os
 from iris_helper import IrisHelper
 from regex_helper import ListHelper
-from listings import garbagedomains
+from listings import garbagedomains, leodomains
 from settings import config_by_name
 import logging
 
