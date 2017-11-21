@@ -1,5 +1,4 @@
 from categorizer.categorizer import Categorizer
-import logging
 import logging.handlers
 
 # SET UP LOGGING
@@ -11,13 +10,13 @@ _logger = logging.getLogger(__name__)
 _logger.addHandler(log_handler)
 _logger.setLevel(logging.INFO)
 
-c = Categorizer()
+c = Categorizer(_logger)
 
 _logger.info('Starting Garbage run...')
 c.cleanup()
 
-#_logger.info('Starting Leo Move...')
-#c.leomove()
+_logger.info('Starting Leo Move...')
+c.leomove()
 
 _logger.info('Starting categorize...')
 c.categorize()

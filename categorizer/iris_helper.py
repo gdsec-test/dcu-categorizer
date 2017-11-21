@@ -37,12 +37,9 @@ class IrisHelper:
                     "AND OriginalEmailAddress LIKE '%@{}' and iris_statusID = 1".format(group_id, service_id, address)
 
             incident = self._iris_db_connect(query)
-            print incident
             if incident:
                 for i in incident:
                     incidents.append(i[0])
-
-        print incidents
 
         return incidents
 

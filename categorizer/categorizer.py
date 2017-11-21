@@ -3,18 +3,17 @@ from iris_helper import IrisHelper
 from regex_helper import ListHelper
 from listings import garbagedomains, leodomains
 from settings import config_by_name
-import logging
 
 settings = config_by_name[os.getenv('sysenv') or 'dev']
 
 
 class Categorizer:
 
-    def __init__(self):
+    def __init__(self, logger):
         self.i = IrisHelper()
         self.l = ListHelper()
         self.eid = settings.phishstory_eid
-        self._logger = logging.getLogger(__name__)
+        self._logger = logger
 
     def cleanup(self):
         incidents = self.i.ticket_finder(garbagedomains, settings.abuse_service_id, settings.group_id)
