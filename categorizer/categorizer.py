@@ -65,8 +65,12 @@ class Categorizer:
             self.i.ticket_close(ticket)
         buckets['close'] = close_cat[0]
 
+        leftovers = []
+        for ticket in close_cat[1]:
+            leftovers.append(ticket)
+
         self.leftovers(close_cat[1], self.eid)
-        self._logger.info('Leftover tickets: {}'.format(close_cat[1]))
+        self._logger.info('Leftover tickets: {}'.format(leftovers))
         buckets['left'] = close_cat[1]
 
         self.i.the_closer()
