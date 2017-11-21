@@ -38,7 +38,8 @@ class IrisHelper:
 
             incident = self._iris_db_connect(query)
             if incident:
-                incidents.append(incident[0][0])
+                for i in incident:
+                    incidents.append(i[0])
 
         return incidents
 
