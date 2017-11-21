@@ -27,18 +27,18 @@ class IrisHelper:
         """
         Iterates through list of "like" email addresses and returns IIDs for use in closure query
         :return: list of tupels, example: [(33221396, ), (33221383, )]
-        for address in address_list: '%@{}' pulled from query
+        ToDo update query to use Table-Value Parameters and a join query to try and speed this up.
         """
         incidents = []
 
+        for address in address_list:
+            query = "SELECT iris_incidentID FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK)"\
+                    "WHERE iris_groupID = {} AND iris_serviceID = {}"\
+                    "AND OriginalEmailAddress LIKE '%@{}' and iris_statusID = 1".format(group_id, service_id, address)
 
-        query = "SELECT iris_incidentID FROM [iris].[dbo].[IRISIncidentMain] WITH(NOLOCK)"\
-                "WHERE iris_groupID = {} AND iris_serviceID = {}"\
-                "AND OriginalEmailAddress LIKE IN (SELECT item FROM string_split('{}', ',')) and iris_statusID = 1".format(group_id, service_id, address_list)
-
-        incident = self._iris_db_connect(query)
-        if incident:
-            incidents.append(incident[0][0])
+            incident = self._iris_db_connect(query)
+            if incident:
+                incidents.append(incident[0][0])
 
         return incidents
 
