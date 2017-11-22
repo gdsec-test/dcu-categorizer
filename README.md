@@ -22,7 +22,10 @@ pip install -r requirements.txt
 ```
 
 ## Deploying
-This code can be deployed as a CRON job anywhere. Simply clone the repository and start the CRON.
+This code can be deployed as a CRON job in any environment. The process for initializing the job is 
+```
+systemctl start crond
+```
 
 ## Testing
 In order to run the tests you must first install the required dependencies via
