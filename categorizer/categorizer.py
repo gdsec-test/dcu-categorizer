@@ -31,7 +31,8 @@ class Categorizer:
 
         tickets = self.i.data_pull()
 
-        phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing']
+        phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing', 'phising',
+                      'fraudulent']
         malware_keys = ['malware', 'virus', 'trojan']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
                          'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
@@ -41,7 +42,9 @@ class Categorizer:
                       'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
                       'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans',
                       'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
-                      'convention', 'cctv', 'attendance', 'job offer']
+                      'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
+                      'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
+                      'web design']
 
         buckets = {}
 
