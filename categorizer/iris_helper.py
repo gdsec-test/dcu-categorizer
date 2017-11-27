@@ -50,12 +50,13 @@ class IrisHelper:
         """
 
         incident_dict = {}
+        group_id = settings.group_id
+        service_id = settings.abuse_service_id
 
-        query = """\
-                SELECT a.iris_incidentID, a.IncidentDescription, b.note FROM [iris].[dbo].[IRISIncidentMain] a WITH(NOLOCK) \
+        query = 'SELECT a.iris_incidentID, a.IncidentDescription, b.note FROM [iris].[dbo].[IRISIncidentMain] a WITH(NOLOCK) \
                 JOIN [iris].[dbo].[IRISIncidentNote] b on b.iris_incidentID = a.iris_incidentID \
-                WHERE a.iris_groupID = 489 AND a.iris_serviceID = 220 \
-                AND a.iris_statusID = 1"""
+                WHERE a.iris_groupID = ' + group_id + ' AND a.iris_serviceID = ' + service_id + ' \
+                AND a.iris_statusID = 1'
 
         incidents = self._iris_db_connect(query)
 
