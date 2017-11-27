@@ -22,7 +22,7 @@ class Categorizer:
             self.i.ticket_close(incident)
 
     def leomove(self):
-        incidents = self.i.ticket_finder(leodomains, settings.abuse_service_id, settings.group_id)
+        incidents = self.i.ticket_finder(leodomains, settings.abuse_service_id, settings.dcu_group_id)
         self._logger.info('Completed leomove function...\n Leomove tickets: {}'.format(incidents))
         for incident in incidents:
             self.i.ticket_move(incident, settings.leo_service_id, settings.dcu_group_id, 0)
@@ -33,9 +33,11 @@ class Categorizer:
 
         phish_keys = ['phishing', 'phish', 'fishing', 'fish']
         malware_keys = ['malware', 'virus']
-        netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute']
+        netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
+                         'honeypot']
         spam_keys = ['spam', 'spoof', 'spoofed']
-        close_keys = ['copyright', 'trademark', 'infringement']
+        close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
+                      'pikavipit', 'lainaa']
 
         buckets = {}
 
