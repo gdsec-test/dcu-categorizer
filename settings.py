@@ -13,7 +13,9 @@ class DevelopmentAppConfig():
     leo_service_id = '215'
     notation_user = 'rduran'
     phishstory_eid = '15550'
-    group_id  = '489'
+    ds_abuse_group_id = '489'
+    csa_group_id = '510'
+    dcu_group_id = '489' # doesn't exist, using DS Abuse
 
 
 class ProductionAppConfig():
@@ -28,7 +30,9 @@ class ProductionAppConfig():
     leo_service_id = '224'
     notation_user = 'phishtory'
     phishstory_eid = '15550'
-    group_id = '411'
+    ds_abuse_group_id = '411'
+    csa_group_id = '443'
+    dcu_group_id = '409'
 
 config_by_name = {'dev': DevelopmentAppConfig,
                   'prod': ProductionAppConfig

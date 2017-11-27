@@ -25,7 +25,7 @@ class Categorizer:
         incidents = self.i.ticket_finder(leodomains, settings.abuse_service_id, settings.group_id)
         self._logger.info('Completed leomove function...\n Leomove tickets: {}'.format(incidents))
         for incident in incidents:
-            self.i.ticket_move(incident, settings.leo_service_id, 0)
+            self.i.ticket_move(incident, settings.leo_service_id, settings.dcu_group_id, 0)
 
     def categorize(self):
 
@@ -41,22 +41,22 @@ class Categorizer:
 
         phish_cat = self.l.reg_logic(tickets, phish_keys)
         self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
-        self._move(settings.phish_service_id, phish_cat[0], self.eid)
+        self._move(settings.phish_service_id, phish_cat[0], settings.csa_group_id, self.eid)
         buckets['phishing'] = phish_cat[0]
 
         mal_cat = self.l.reg_logic(phish_cat[1], malware_keys)
         self._logger.info('Malware incidents moved: {}'.format(mal_cat[0]))
-        self._move(settings.mal_service_id, mal_cat[0], self.eid)
+        self._move(settings.mal_service_id, mal_cat[0], settings.csa_group_id, self.eid)
         buckets['malware'] = mal_cat[0]
 
         net_cat = self.l.reg_logic(mal_cat[1], netabuse_keys)
         self._logger.info('Netabuse incidents moved: {}'.format(net_cat[0]))
-        self._move(settings.net_service_id, net_cat[0], self.eid)
+        self._move(settings.net_service_id, net_cat[0], settings.csa_group_id, self.eid)
         buckets['netabuse'] = net_cat[0]
 
         spam_cat = self.l.reg_logic(net_cat[1], spam_keys)
         self._logger.info('Spam incidents moved: {}'.format(spam_cat[0]))
-        self._move(settings.spam_service_id, spam_cat[0], self.eid)
+        self._move(settings.spam_service_id, spam_cat[0], settings.csa_group_id, self.eid)
         buckets['spam'] = spam_cat[0]
 
         close_cat = self.l.reg_logic(spam_cat[1], close_keys)
@@ -77,10 +77,10 @@ class Categorizer:
 
         return buckets
 
-    def _move(self, service_id, move_list, eid):
+    def _move(self, service_id, move_list, groupid, eid):
 
         for ticket in move_list:
-            result = self.i.ticket_move(ticket, service_id, eid)
+            result = self.i.ticket_move(ticket, service_id, groupid, eid)
             if result:
                 self._logger.info('Succesfully moved: {}'.format(ticket))
 
