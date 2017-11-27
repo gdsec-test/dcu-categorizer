@@ -16,7 +16,7 @@ class Categorizer:
         self._logger = logger
 
     def cleanup(self):
-        incidents = self.i.ticket_finder(garbagedomains, settings.abuse_service_id, settings.group_id)
+        incidents = self.i.ticket_finder(garbagedomains, settings.abuse_service_id, settings.ds_abuse_group_id)
         self._logger.info('Completed cleanup function...\n Cleanup tickets: {}'.format(incidents))
         for incident in incidents:
             self.i.ticket_close(incident)
