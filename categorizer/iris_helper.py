@@ -50,7 +50,7 @@ class IrisHelper:
         """
 
         incident_dict = {}
-        group_id = settings.group_id
+        group_id = settings.ds_abuse_group_id
         service_id = settings.abuse_service_id
 
         query = 'SELECT a.iris_incidentID, a.IncidentDescription, b.note FROM [iris].[dbo].[IRISIncidentMain] a WITH(NOLOCK) \
