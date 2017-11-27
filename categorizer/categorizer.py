@@ -31,14 +31,14 @@ class Categorizer:
 
         tickets = self.i.data_pull()
 
-        phish_keys = ['phishing', 'phish', 'fishing', 'fish']
+        phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer']
         malware_keys = ['malware', 'virus']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
-                         'honeypot', 'abusix']
-        spam_keys = ['spam', 'spoof', 'spoofed', 'trans.']
+                         'honeypot', 'abusix', 'rogue DNS', 'attacks', 'crack']
+        spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:']
         close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
                       'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
-                      'leads']
+                      'leads', 'donation', 'sell', 'sale', 'manufacturer']
 
         buckets = {}
 
