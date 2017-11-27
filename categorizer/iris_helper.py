@@ -86,13 +86,14 @@ class IrisHelper:
         except Exception as e:
             self._logger.error("Auto Close failed on IID: {}, {}".format(incident, e))
 
-    def ticket_move(self, iid, serviceid, eid):
+    def ticket_move(self, iid, serviceid, groupid, eid):
         """
         This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
         stored procedure
         :param iid:
         :param serviceid:
         :param eid:
+        :param groupid:
         :return:
         """
 
@@ -100,10 +101,10 @@ class IrisHelper:
         SET CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON;
         SET IMPLICIT_TRANSACTIONS OFF;
         DECLARE @b_checkdatepass bit;
-        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_groupID = 510, @n_iris_employeeID = ?, @b_checkdatepass = @b_checkdatepass output;
+        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @n_iris_groupID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_employeeID = ?, @b_checkdatepass = @b_checkdatepass output;
         SELECT @b_checkdatepass AS the_output;"""
 
-        params = (iid, serviceid, eid)
+        params = (iid, serviceid, groupid, eid)
 
         self._iris_db_connect(query, params)
 
