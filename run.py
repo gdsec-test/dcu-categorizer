@@ -13,10 +13,10 @@ _logger.setLevel(logging.INFO)
 c = Categorizer(_logger)
 
 _logger.info('Starting Garbage run...')
-# c.cleanup()
+c.cleanup()
 
 _logger.info('Starting Leo Move...')
-# c.leomove()
+c.leomove()
 
 _logger.info('Starting categorize...')
 c.categorize()
