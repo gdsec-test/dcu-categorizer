@@ -44,7 +44,7 @@ class Categorizer:
                       'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
                       'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
                       'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
-                      'web design', '出 售 吗']
+                      'web design', u'\u552E']
 
         buckets = {}
 
