@@ -2,7 +2,7 @@ garbagedomains = ['sh.baidu.com', 'notices.nr-online.com', 'legal-notification.c
                   'certifiedmart.com', 'marcon-media.de', 'newsletter.kopp-verlag.de', 'brandshop.com', 'law360.com',
                   'ogrupo.org.br', 'domainerschoice.com', '163.com', 'peakindustry.com', 'woody.ch', 'foxmail.com',
                   'sina.cn', 'sina.com', 'appleitunesguide.com', 'notice.bizcn.com', 'iibmindia.in', 'irt.riskiq.net',
-                  'MarkMonitor.com']
+                  'MarkMonitor.com', 'onlinenic.com', 'iprorealtors.com', 'digicert.com', 'webgrw.com']
 
 leodomains = ['essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.midland.on.ca',
               'montevideopolice.com', 'pcivil.ba.gov.br', 'ccd.gov.eg', 'police.govt.nz', 'pascosheriff.org',

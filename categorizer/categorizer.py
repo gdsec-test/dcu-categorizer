@@ -34,10 +34,11 @@ class Categorizer:
         phish_keys = ['phishing', 'phish', 'fishing', 'fish']
         malware_keys = ['malware', 'virus']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
-                         'honeypot']
-        spam_keys = ['spam', 'spoof', 'spoofed']
+                         'honeypot', 'abusix']
+        spam_keys = ['spam', 'spoof', 'spoofed', 'trans.']
         close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
-                      'pikavipit', 'lainaa']
+                      'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
+                      'leads']
 
         buckets = {}
 
