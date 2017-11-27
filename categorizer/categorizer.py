@@ -33,7 +33,7 @@ class Categorizer:
 
         phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing', 'phising',
                       'fraudulent']
-        malware_keys = ['malware', 'virus', 'trojan']
+        malware_keys = ['malware', 'virus', 'trojan', 'dotz']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
                          'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
                          'signon', 'sign-on', 'sign-in', 'signin']
@@ -44,7 +44,8 @@ class Categorizer:
                       'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
                       'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
                       'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
-                      'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message']
+                      'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message',
+                      'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras']
 
         buckets = {}
 
