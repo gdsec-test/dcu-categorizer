@@ -32,13 +32,13 @@ class Categorizer:
         tickets = self.i.data_pull()
 
         phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer']
-        malware_keys = ['malware', 'virus']
+        malware_keys = ['malware', 'virus', 'trojan']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
-                         'honeypot', 'abusix', 'rogue DNS', 'attacks', 'crack']
+                         'honeypot', 'abusix', 'rogue DNS', 'attacks', 'crack', 'hack']
         spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:']
         close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
                       'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
-                      'leads', 'donation', 'sell', 'sale', 'manufacturer']
+                      'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans']
 
         buckets = {}
 
