@@ -22,10 +22,13 @@ pip install -r requirements.txt
 ```
 
 ## Deploying
-This code can be deployed as a CRON job in any environment. The process for initializing the job is 
+This code can be deployed as a CRON job in any environment or simply run once. For running via CRON, first define your CRON file and initialize it (CentOs7 example) via
 ```
 systemctl start crond
 ```
+If you would like to run this script once then simply run `python run.py`
+
+Note: You will still need to define all necessary environment variables. This can be done in the CRON file or elsewhere in your environment.
 
 ## Testing
 In order to run the tests you must first install the required dependencies via
