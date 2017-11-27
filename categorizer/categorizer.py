@@ -31,14 +31,17 @@ class Categorizer:
 
         tickets = self.i.data_pull()
 
-        phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer']
+        phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing']
         malware_keys = ['malware', 'virus', 'trojan']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
-                         'honeypot', 'abusix', 'rogue DNS', 'attacks', 'crack', 'hack']
+                         'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
+                         'signon', 'sign-on']
         spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:']
         close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
                       'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
-                      'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans']
+                      'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans',
+                      'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
+                      'convention', 'cctv', 'attendance', 'job offer']
 
         buckets = {}
 
