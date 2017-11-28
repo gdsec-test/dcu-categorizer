@@ -1,6 +1,6 @@
 import pyodbc
 import os
-import suds
+from suds.client import Client
 import logging
 from settings import config_by_name
 
@@ -20,7 +20,7 @@ class IrisHelper:
 
         self.cnxn.autocommit = True
         self.cnxn.timeout = 0
-        self._client = suds.client.Client(settings.wsdl_url)
+        self._client = Client(settings.wsdl_url)
         self.closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
 
     def ticket_finder(self, address_list, service_id, group_id):

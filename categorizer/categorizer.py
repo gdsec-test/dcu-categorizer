@@ -32,12 +32,12 @@ class Categorizer:
         tickets = self.i.data_pull()
 
         phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing', 'phising',
-                      'fraudulent']
+                      'fraudulent', 'impersonating', 'bank', 'banking', 'former owner', 'previous owner', 'fake login']
         malware_keys = ['malware', 'virus', 'trojan', 'dotz']
         netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
                          'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
-                         'signon', 'sign-on', 'sign-in', 'signin']
-        spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:']
+                         'signon', 'sign-on', 'sign-in', 'signin', 'SQL injection']
+        spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:', 'abuse email']
         close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
                       'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
                       'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans',
@@ -45,7 +45,8 @@ class Categorizer:
                       'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
                       'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
                       'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message',
-                      'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras']
+                      'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras', 'unsolicited text',
+                      '0pportunity', 'business opportunity', 'digital specialist', 'intellectuelle']
 
         buckets = {}
 
