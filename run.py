@@ -1,4 +1,5 @@
 from categorizer.categorizer import Categorizer
+from categorizer.iris_helper import IrisHelper
 import logging.handlers
 
 # SET UP LOGGING
@@ -11,14 +12,23 @@ _logger.addHandler(log_handler)
 _logger.setLevel(logging.INFO)
 
 c = Categorizer(_logger)
+i = IrisHelper(_logger)
+
+incidents = {}
+
+_logger.info('Pulling incidents...')
+incident_list = i.data_pull()
+for incident in incident_list:
+    incidents[str(incident[0])] = incident[1]
+
 
 _logger.info('Starting Garbage run...')
-c.cleanup()
+incidents = c.cleanup(incidents)
 
 _logger.info('Starting Leo Move...')
-c.leomove()
+incidents = c.leomove(incidents)
 
 _logger.info('Starting categorize...')
-c.categorize()
+c.categorize(incidents)
 
 _logger.info('All Abuse@ functions complete')
