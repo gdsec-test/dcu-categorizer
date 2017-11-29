@@ -38,9 +38,7 @@ class IrisHelper:
                 'AND iris_employeeID = 0 and iris_statusID = 1 ' \
                 'ORDER BY createDate'
 
-        incidents = self._iris_db_connect(query)
-
-        return incidents
+        return self._iris_db_connect(query)
 
     def ticket_close(self, incident):
         """
@@ -71,8 +69,13 @@ class IrisHelper:
 
         xml_string = suds.sax.text.Raw("<ns0:IncidentId>" + str(iid) +
                                        "</ns0:IncidentId>")
-        incident_info = dict(self._client.service.GetIncidentInfoByIncidentId(
-            xml_string))
+
+        try:
+            incident_info = dict(self._client.service.GetIncidentInfoByIncidentId(xml_string))
+
+        except Exception as e:
+            self._logger.error('Unable to retrieve incident info: {}'.format(e.message))
+
         email = incident_info['ToEmailAddress']
         subject = incident_info['Subject']
 
