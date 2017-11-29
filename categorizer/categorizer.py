@@ -14,13 +14,6 @@ class Categorizer:
         self.eid = settings.phishstory_eid
         self._logger = logger
         self.i = IrisHelper(self._logger)
-        self.garbagedomains = listings.garbagedomains
-        self.leodomains = listings.leodomains
-        self.phish_keys = listings.phish_keys
-        self.malware_keys = listings.malware_keys
-        self.netabuse_keys = listings.netabuse_keys
-        self.spam_keys = listings.spam_keys
-        self.close_keys = listings.close_keys
         self.abuse_id = settings.abuse_service_id
         self.abuse_group = settings.ds_abuse_group_id
         self.leo_id = settings.leo_service_id
@@ -33,7 +26,7 @@ class Categorizer:
         :param incidents: dictionary with IIDs for Key, email for value
         :return:
         """
-        domains = self.garbagedomains
+        domains = listings.garbagedomains
         remove = []
 
         for iid, email in incidents.iteritems():
@@ -56,7 +49,7 @@ class Categorizer:
         :return:
         """
 
-        domains = self.leodomains
+        domains = listings.leodomains
         remove = []
 
         for iid, email in incidents.iteritems():
@@ -90,39 +83,34 @@ class Categorizer:
 
             incident_dict[iid] = (subject, body)
 
-        phish_cat = self.l.reg_logic(incident_dict, self.phish_keys)
+        phish_cat = self.l.reg_logic(incident_dict, listings.phish_keys)
         self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
         self._move(settings.phish_service_id, phish_cat[0], settings.csa_group_id, self.eid)
         buckets['phishing'] = phish_cat[0]
 
-        mal_cat = self.l.reg_logic(phish_cat[1], self.malware_keys)
+        mal_cat = self.l.reg_logic(phish_cat[1], listings.malware_keys)
         self._logger.info('Malware incidents moved: {}'.format(mal_cat[0]))
         self._move(settings.mal_service_id, mal_cat[0], settings.csa_group_id, self.eid)
         buckets['malware'] = mal_cat[0]
 
-        net_cat = self.l.reg_logic(mal_cat[1], self.netabuse_keys)
+        net_cat = self.l.reg_logic(mal_cat[1], listings.netabuse_keys)
         self._logger.info('Netabuse incidents moved: {}'.format(net_cat[0]))
         self._move(settings.net_service_id, net_cat[0], settings.csa_group_id, self.eid)
         buckets['netabuse'] = net_cat[0]
 
-        spam_cat = self.l.reg_logic(net_cat[1], self.spam_keys)
+        spam_cat = self.l.reg_logic(net_cat[1], listings.spam_keys)
         self._logger.info('Spam incidents moved: {}'.format(spam_cat[0]))
         self._move(settings.spam_service_id, spam_cat[0], settings.csa_group_id, self.eid)
         buckets['spam'] = spam_cat[0]
 
-        close_cat = self.l.reg_logic(spam_cat[1], self.close_keys)
+        close_cat = self.l.reg_logic(spam_cat[1], listings.close_keys)
         self._logger.info('Tickets being closed: {}'.format(close_cat[0]))
         for ticket in close_cat[0]:
             self.i.ticket_close(ticket)
         buckets['close'] = close_cat[0]
 
-        leftovers = []
-        for ticket in close_cat[1]:
-            leftovers.append(ticket)
-
         self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
-        self._logger.info('Leftover tickets: {}'.format(leftovers))
-        buckets['left'] = close_cat[1]
+        self._logger.info('Leftover tickets: {}'.format(close_cat[1]))
 
         self.i.the_closer()
 
