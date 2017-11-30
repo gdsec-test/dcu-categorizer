@@ -30,8 +30,8 @@ class Categorizer:
         remove = []
 
         for iid, email in incidents.iteritems():
-            email = email.split('@')
-            if email[1] in domains:
+            email = self._email_helper(email)
+            if email in domains:
                 self.i.ticket_close(iid)
                 remove.append(iid)
 
@@ -53,8 +53,8 @@ class Categorizer:
         remove = []
 
         for iid, email in incidents.iteritems():
-            email = email.split('@')
-            if email[1] in domains:
+             email = self._email_helper(email)
+             if email in domains:
                 self.i.ticket_update(iid, self.leo_id, self.dcu_group, 0)
                 remove.append(iid)
 
@@ -78,8 +78,8 @@ class Categorizer:
 
         for iid in incidents.iterkeys():
             text = self.i.note_puller(iid)
-            subject = text[1]
-            body = text[2]
+            subject = text[1] or ''
+            body = text[2] or ''
 
             incident_dict[iid] = (subject, body)
 
@@ -146,3 +146,9 @@ class Categorizer:
         """
         for ticket in update_list:
             self.i.ticket_update(ticket, service_id, groupid, eid)
+
+    def _email_helper(self, email):
+        if '@' in email:
+            email = email.split('@')[1]
+
+        return email
