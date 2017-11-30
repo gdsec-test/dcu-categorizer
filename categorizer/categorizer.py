@@ -148,6 +148,11 @@ class Categorizer:
             self.i.ticket_update(ticket, service_id, groupid, eid)
 
     def _email_helper(self, email):
+        """
+        Used to avoid issues with Non email entires in the Email area of IRIS tickets
+        :param email:
+        :return:
+        """
         if '@' in email:
             email = email.split('@')[1]
 
