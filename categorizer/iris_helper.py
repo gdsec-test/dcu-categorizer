@@ -74,13 +74,13 @@ class IrisHelper:
         except Exception as e:
             self._logger.error('Unable to retrieve incident info: {}'.format(e.message))
 
-        email = incident_info['ToEmailAddress']
-        subject = incident_info['Subject']
+        email = incident_info['ToEmailAddress'] or ''
+        subject = incident_info['Subject'] or ''
 
         notes_text = self._client.service.GetIncidentCustomerNotes(iid, 0)
         note_dict = xmltodict.parse(notes_text)
 
-        note = note_dict['NotesByIncident']['Notes']['Item']['@Note']
+        note = note_dict['NotesByIncident']['Notes']['Item']['@Note'] or ''
 
         return email, subject, note
 
