@@ -79,14 +79,8 @@ class Categorizer:
 
         for iid in incidents.iterkeys():
             text = self.i.note_puller(iid)
-            if text[1]:
-                subject = text[1]
-            else:
-                subject = ''
-            if text[2]:
-                body = text[2]
-            else:
-                body = ''
+            subject = text[1] or ''
+            body = text[2] or ''
 
             incident_dict[iid] = (subject, body)
             time.sleep(5)
@@ -156,9 +150,7 @@ class Categorizer:
             self.i.ticket_update(ticket, service_id, groupid, eid)
 
     def _email_helper(self, email):
-        if len(email) > 1:
-            if '@' in email:
-                email = email.split('@')
-                return email[1]
+        if '@' in email:
+            email = email.split('@')[1]
 
         return email
