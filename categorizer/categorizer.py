@@ -3,6 +3,7 @@ from iris_helper import IrisHelper
 from regex_helper import ListHelper
 import listings
 from settings import config_by_name
+import time
 
 settings = config_by_name[os.getenv('sysenv') or 'dev']
 
@@ -30,8 +31,8 @@ class Categorizer:
         remove = []
 
         for iid, email in incidents.iteritems():
-            email = email.split('@')
-            if email[1] in domains:
+            email = self._email_helper(email)
+            if email in domains:
                 self.i.ticket_close(iid)
                 remove.append(iid)
 
@@ -53,8 +54,8 @@ class Categorizer:
         remove = []
 
         for iid, email in incidents.iteritems():
-            email = email.split('@')
-            if email[1] in domains:
+             email = self._email_helper(email)
+             if email in domains:
                 self.i.ticket_update(iid, self.leo_id, self.dcu_group, 0)
                 remove.append(iid)
 
@@ -78,10 +79,17 @@ class Categorizer:
 
         for iid in incidents.iterkeys():
             text = self.i.note_puller(iid)
-            subject = text[1]
-            body = text[2]
+            if text[1]:
+                subject = text[1]
+            else:
+                subject = ''
+            if text[2]:
+                body = text[2]
+            else:
+                body = ''
 
             incident_dict[iid] = (subject, body)
+            time.sleep(5)
 
         try:
 
@@ -146,3 +154,11 @@ class Categorizer:
         """
         for ticket in update_list:
             self.i.ticket_update(ticket, service_id, groupid, eid)
+
+    def _email_helper(self, email):
+        if len(email) > 1:
+            if '@' in email:
+                email = email.split('@')
+                return email[1]
+
+        return email
