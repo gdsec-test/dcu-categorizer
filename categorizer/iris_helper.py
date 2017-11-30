@@ -19,8 +19,6 @@ class IrisHelper:
         except Exception as e:
             self._logger.error('Connection to IRIS DB failed: {}'.format(e))
 
-        self.cnxn.autocommit = True
-        self.cnxn.timeout = 0
         self._client = suds.client.Client(settings.wsdl_url)
         self.closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
 
@@ -116,6 +114,8 @@ class IrisHelper:
         :return:
         """
 
+        self.cnxn.autocommit = True
+        self.cnxn.timeout = 0
         cursor = self.cnxn.cursor()
         query = query.strip()
         if params:
