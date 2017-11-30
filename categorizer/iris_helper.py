@@ -80,7 +80,10 @@ class IrisHelper:
         notes_text = self._client.service.GetIncidentCustomerNotes(iid, 0)
         note_dict = xmltodict.parse(notes_text)
 
-        note = note_dict['NotesByIncident']['Notes']['Item']['@Note'] or ''
+        note = ''
+
+        if note_dict['NotesByIncident']['Notes']['Item']['@Note']:
+            note = note_dict['NotesByIncident']['Notes']['Item']['@Note'] or ''
 
         return email, subject, note
 
