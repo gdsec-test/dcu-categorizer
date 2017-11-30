@@ -3,7 +3,6 @@ from iris_helper import IrisHelper
 from regex_helper import ListHelper
 import listings
 from settings import config_by_name
-import time
 
 settings = config_by_name[os.getenv('sysenv') or 'dev']
 
@@ -83,7 +82,6 @@ class Categorizer:
             body = text[2] or ''
 
             incident_dict[iid] = (subject, body)
-            time.sleep(5)
 
         try:
 
