@@ -1,11 +1,11 @@
-garbagedomains = ['sh.baidu.com', 'notices.nr-online.com', 'legal-notification.com', 'woody.ch', 'justdeals.com',
+garbagedomains = {'sh.baidu.com', 'notices.nr-online.com', 'legal-notification.com', 'woody.ch', 'justdeals.com',
                   'certifiedmart.com', 'marcon-media.de', 'newsletter.kopp-verlag.de', 'brandshop.com', 'law360.com',
                   'ogrupo.org.br', 'domainerschoice.com', '163.com', 'peakindustry.com', 'woody.ch', 'foxmail.com',
                   'sina.cn', 'sina.com', 'appleitunesguide.com', 'notice.bizcn.com', 'iibmindia.in', 'irt.riskiq.net',
                   'MarkMonitor.com', 'onlinenic.com', 'iprorealtors.com', 'digicert.com', 'webgrw.com', 'siterank.today',
-                  'sidn.nl', 'NameBright.com', 'activesearchresults.com', 'mail.breitbart.com']
+                  'sidn.nl', 'NameBright.com', 'activesearchresults.com', 'mail.breitbart.com'}
 
-leodomains = ['essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.midland.on.ca',
+leodomains = {'essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.midland.on.ca',
               'montevideopolice.com', 'pcivil.ba.gov.br', 'ccd.gov.eg', 'police.govt.nz', 'pascosheriff.org',
               'da.lacounty.gov', 'isp.state.il.us', 'cybercrimehelpline.in', 'fremont.gov', 'ksp.policja.gov.pl',
               'ci.irvine.ca.us', 'ci.kennewick.wa.us', 'walthamforest.gov.uk', 'doj.gov.ph', 'loudoun.gov',
@@ -101,4 +101,27 @@ leodomains = ['essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.mi
               'altatecmonterrey.com', 'pgr.gob.mx', 'westyorkshire.pnn.police.uk', 'maine.gov', 'sunrisefl.gov',
               'arriendosrenaca.cl', 'bryantx.gov', 'pirst.kr', 'politieherko.be', 'douglascounty-ne.gov',
               'ventura.org', 'comcom.govt.nz', 'cityoflewisville.com', 'kohlerpolice.com', 'attorneygeneral.gov',
-              'eastdunbarton.gov.uk', 'rsoc.ru', 'royalbijuterii.ro']
+              'eastdunbarton.gov.uk', 'rsoc.ru', 'royalbijuterii.ro'}
+
+phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing', 'phising',
+              'fraudulent', 'impersonating', 'bank', 'banking', 'former owner', 'previous owner', 'fake login',
+              'fincert@cbr.ru']
+
+malware_keys = ['malware', 'virus', 'trojan', 'dotz']
+
+netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
+                 'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
+                 'signon', 'sign-on', 'sign-in', 'signin', 'SQL injection']
+
+spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:', 'abuse email']
+
+close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
+              'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
+              'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans',
+              'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
+              'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
+              'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
+              'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message',
+              'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras', 'unsolicited text',
+              '0pportunity', 'business opportunity', 'digital specialist', 'intellectuelle', 'whitelist request',
+              'purchase the domain']
