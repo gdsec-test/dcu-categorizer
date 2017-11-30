@@ -82,8 +82,14 @@ class IrisHelper:
 
         note = ''
 
-        if note_dict['NotesByIncident']['Notes']:
-            note = note_dict.get('NotesByIncident', '').get('Notes', '').get('Item', '').get('@Note', '')
+        notes_check = note_dict.get('NotesByIncident').get('Notes')
+
+        if notes_check:
+            item_check = notes_check.get('Item')
+            if isinstance(item_check, list):
+                item_check = item_check[0]
+
+            note = item_check.get('@Note', '')
 
         return email, subject, note
 
