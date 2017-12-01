@@ -112,7 +112,10 @@ class Categorizer:
             buckets['close'] = close_cat[0]
 
             self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
-            self._logger.info('Leftover tickets: {}'.format(close_cat[1]))
+            leftover_iids = []
+            for iid in close_cat[1].iterkeys():
+                leftover_iids.append(iid)
+            self._logger.info('Leftover tickets: {}'.format(leftover_iids))
 
         except Exception as e:
             self._logger.error('Unable to complete Categorizer: {}'.format(e.message))
@@ -145,6 +148,7 @@ class Categorizer:
         :return:
         """
         for ticket in update_list:
+            self._logger.info('Assining ticket to Phishtory, CSA: {}'.format(ticket))
             self.i.ticket_update(ticket, service_id, groupid, eid)
 
     def _email_helper(self, email):
