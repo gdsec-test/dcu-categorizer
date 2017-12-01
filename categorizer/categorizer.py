@@ -148,7 +148,7 @@ class Categorizer:
         :return:
         """
         for ticket in update_list:
-            self._logger.info('Assining ticket to Phishtory, CSA: {}'.format(ticket))
+            self._logger.info('Assigning ticket to Phishtory, CSA: {}'.format(ticket))
             self.i.ticket_update(ticket, service_id, groupid, eid)
 
     def _email_helper(self, email):
