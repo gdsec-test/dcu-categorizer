@@ -16,7 +16,7 @@ _logger = logging.getLogger(__name__)
 _logger.addHandler(log_handler)
 _logger.setLevel(logging.INFO)
 
-
+#todo this test is broken now that the data_pull query has changed, need to update test and check coverage
 class TestCategorizer:
 
     def __init__(self):
