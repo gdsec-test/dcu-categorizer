@@ -112,10 +112,7 @@ class Categorizer:
             buckets['close'] = close_cat[0]
 
             self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
-            leftover_iids = []
-            for iid in close_cat[1].iterkeys():
-                leftover_iids.append(iid)
-            self._logger.info('Leftover tickets: {}'.format(leftover_iids))
+            self._logger.info('Leftover tickets: {}'.format(close_cat[1].keys()))
 
         except Exception as e:
             self._logger.error('Unable to complete Categorizer: {}'.format(e.message))
