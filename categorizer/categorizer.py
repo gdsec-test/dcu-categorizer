@@ -113,12 +113,14 @@ class Categorizer:
 
             self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
             self._logger.info('Leftover tickets: {}'.format(close_cat[1].keys()))
+            buckets['left'] = close_cat[1].keys()
 
         except Exception as e:
             self._logger.error('Unable to complete Categorizer: {}'.format(e.message))
 
         finally:
             self.i.the_closer()
+            return buckets
 
     def _move(self, service_id, move_list, groupid, eid):
         """
