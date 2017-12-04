@@ -16,6 +16,8 @@ class DevelopmentAppConfig():
     ds_abuse_group_id = '489'
     csa_group_id = '510'
     dcu_group_id = '489' # doesn't exist, using DS Abuse
+    leo_email_id = '391'
+    abuse_email_id = '1256'
 
 class ProductionAppConfig():
     pwd = os.getenv('IRISPWD') or 'password'
