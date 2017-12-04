@@ -93,7 +93,7 @@ class IrisHelper:
 
         return email, subject, note
 
-    def ticket_update(self, iid, serviceid, groupid, eid):
+    def ticket_update(self, iid, serviceid, groupid, eid, emailid):
         """
         This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
         stored procedure
@@ -108,10 +108,10 @@ class IrisHelper:
         SET CONCAT_NULL_YIELDS_NULL, ANSI_WARNINGS, ANSI_PADDING ON;
         SET IMPLICIT_TRANSACTIONS OFF;
         DECLARE @b_checkdatepass bit;
-        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @n_iris_groupID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_employeeID = ?, @b_checkdatepass = @b_checkdatepass output;
+        EXEC IRIS_IncidentMainUpdate_sp @n_incidentID = ?, @n_ServiceID = ?, @n_iris_groupID = ?, @vc_modifiedBy = 'DCU Abuse cleanup', @n_iris_employeeID = ?, @n_inboxEmailID = ?, @b_checkdatepass = @b_checkdatepass output;
         SELECT @b_checkdatepass AS the_output;"""
 
-        params = (iid, serviceid, groupid, eid)
+        params = (iid, serviceid, groupid, eid, emailid)
 
         self._iris_db_connect(query, params)
 

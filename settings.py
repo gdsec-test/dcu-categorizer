@@ -17,7 +17,6 @@ class DevelopmentAppConfig():
     csa_group_id = '510'
     dcu_group_id = '489' # doesn't exist, using DS Abuse
 
-
 class ProductionAppConfig():
     pwd = os.getenv('IRISPWD') or 'password'
     dbstring = 'DRIVER={FreeTDS};SERVER=10.32.146.30;PORT=1433;DATABASE=iris;UID=N1_mF09EAA138D464E;PWD=' + pwd + ';TDS_VERSION=8.0'
@@ -33,6 +32,8 @@ class ProductionAppConfig():
     ds_abuse_group_id = '411'
     csa_group_id = '443'
     dcu_group_id = '409'
+    leo_email_id = '391'
+    abuse_email_id = '1256'
 
 config_by_name = {'dev': DevelopmentAppConfig,
                   'prod': ProductionAppConfig
