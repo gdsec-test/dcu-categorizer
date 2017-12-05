@@ -1,10 +1,14 @@
-from mock import patch
 from nose.tools import assert_equal
-
+from mock import patch
 from categorizer.categorizer import Categorizer
-from categorizer.iris_helper import IrisHelper
-
+from categorizer.categorizer import IrisHelper
 import logging.handlers
+
+"""
+Recommended settings for testing:
+--with-coverage --cover-package=categorizer --cover-html --cover-erase --nologcapture
+nologcapture avoids suds log dumps into the testing
+"""
 
 
 # SET UP LOGGING
@@ -16,32 +20,52 @@ _logger = logging.getLogger(__name__)
 _logger.addHandler(log_handler)
 _logger.setLevel(logging.INFO)
 
-#todo this test is broken now that the data_pull query has changed, need to update test and check coverage
+
 class TestCategorizer:
 
     def __init__(self):
         self._cat = Categorizer(_logger)
 
-    @patch.object(IrisHelper, 'data_pull')
-    @patch.object(IrisHelper, 'ticket_move')
-    @patch.object(IrisHelper, 'ticket_close')
-    @patch.object(IrisHelper, 'ticket_update')
-    def test_categorizer(self, ticket_update, ticket_close, ticket_move, data_pull):
-        data_pull.return_value = {1354877: ('Paddy Test', 'another test'),
-                                  1354888: ('TIME-SENSITIVE - PHISHING / Incident ID: 28125353 / '
-                                             'IP Address: 23.229.236.134 / ASN: AS-26496-GO-DADDY-COM-LLC - '
-                                             'GoDaddy.com, LLC, US',
-                                             'TIME-SENSITIVE - PHISHING / Incident ID: 28126012'
-                                             ' / IP Address: 192.169.197.43 / ASN: AS-26496-GO-DADDY-COM-LLC - '
-                                             'GoDaddy.com, LLC, US'),
-                                  1354768: ('Televisa: AV infringement - TelevisaCaseID-11566254',
-                                             'SSH brute-force from your network / domain (184.168.200.238)'),
-                                  1359823: ('bad guy alert', 'I got a virus!!!! 123.123.123.123'),
-                                  1356874: ('things and stuff',
-                                             'Spam-Distributed Counterfeit Goods Spam Incident Report 1400806'),
-                                  1357985: ('trademark stolen!!', 'some stuff')}
+    def test_cleanup(self):
+        """
+        recommended to create dev IRIS tickets and use IIDs and emails in test
+        :return:
+        """
+        incidents = {'123456': 'testing@sh.baidu.com',
+                     '987654': 'testing@testing.com',
+                     '456789': 'testing@peakindustry.com'}
 
-        result = self._cat.categorize()
-        expected = {'malware': [1359823], 'spam': [1356874], 'phishing': [1354888], 'close': [1357985],
-                    'netabuse': [1354768], 'left': {1354877: ('Paddy Test', 'another test')}}
-        assert_equal(result, expected)
+        results = self._cat.cleanup(incidents)
+
+        expected = {'987654': 'testing@testing.com'}
+
+        return assert_equal(results, expected)
+
+    def test_leomove(self):
+        """
+        recommended to create dev IRIS tickets and use IIDs and emails in test
+        :return:
+        """
+        incidents = {'1355224': 'testing@rkn.gov.ru',
+                     '1355225': 'testing@testing.com'}
+
+        results = self._cat.leomove(incidents)
+
+        expected = {'1355225': 'testing@testing.com'}
+
+        return assert_equal(results, expected)
+
+    def test_categorizer(self):
+        """
+        IRIS tickets created in dev IRIS and IIDs and from email
+        :return:
+        """
+        incidents = {'1355218': 'testing@testing',
+                     '1355212': 'garbage@testing.com'}
+
+        results = self._cat.categorize(incidents)
+
+        expected = {'malware': [], 'spam': [], 'phishing': ['1355218'], 'close': ['1355212'], 'netabuse': [],
+                    'left': []}
+
+        return assert_equal(results, expected)

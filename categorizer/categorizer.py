@@ -55,7 +55,7 @@ class Categorizer:
         for iid, email in incidents.iteritems():
              email = self._email_helper(email)
              if email in domains:
-                self.i.ticket_update(iid, self.leo_id, self.dcu_group, 0)
+                self.i.ticket_update(iid, self.leo_id, self.dcu_group, 0, settings.leo_email_id)
                 remove.append(iid)
 
         for iid in remove:
@@ -87,22 +87,22 @@ class Categorizer:
 
             phish_cat = self.l.reg_logic(incident_dict, listings.phish_keys)
             self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
-            self._move(settings.phish_service_id, phish_cat[0], settings.csa_group_id, self.eid)
+            self._move(settings.phish_service_id, phish_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['phishing'] = phish_cat[0]
 
             mal_cat = self.l.reg_logic(phish_cat[1], listings.malware_keys)
             self._logger.info('Malware incidents moved: {}'.format(mal_cat[0]))
-            self._move(settings.mal_service_id, mal_cat[0], settings.csa_group_id, self.eid)
+            self._move(settings.mal_service_id, mal_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['malware'] = mal_cat[0]
 
             net_cat = self.l.reg_logic(mal_cat[1], listings.netabuse_keys)
             self._logger.info('Netabuse incidents moved: {}'.format(net_cat[0]))
-            self._move(settings.net_service_id, net_cat[0], settings.csa_group_id, self.eid)
+            self._move(settings.net_service_id, net_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['netabuse'] = net_cat[0]
 
             spam_cat = self.l.reg_logic(net_cat[1], listings.spam_keys)
             self._logger.info('Spam incidents moved: {}'.format(spam_cat[0]))
-            self._move(settings.spam_service_id, spam_cat[0], settings.csa_group_id, self.eid)
+            self._move(settings.spam_service_id, spam_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['spam'] = spam_cat[0]
 
             close_cat = self.l.reg_logic(spam_cat[1], listings.close_keys)
@@ -113,25 +113,28 @@ class Categorizer:
 
             self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
             self._logger.info('Leftover tickets: {}'.format(close_cat[1].keys()))
+            buckets['left'] = close_cat[1].keys()
 
         except Exception as e:
             self._logger.error('Unable to complete Categorizer: {}'.format(e.message))
 
         finally:
             self.i.the_closer()
+            return buckets
 
-    def _move(self, service_id, move_list, groupid, eid):
+    def _move(self, service_id, move_list, groupid, eid, emailid):
         """
         Takes list of tickets to move and calls IRIS DB Stored Procedure to update ticket to new queue
-        :param service_id:
-        :param move_list:
-        :param groupid:
-        :param eid:
+        :param service_id: in settings
+        :param move_list: in settings
+        :param groupid: in settings
+        :param eid: in settings
+        :param emailid: in settings
         :return:
         """
 
         for ticket in move_list:
-            result = self.i.ticket_update(ticket, service_id, groupid, eid)
+            result = self.i.ticket_update(ticket, service_id, groupid, eid, emailid)
             if result:
                 self._logger.info('Succesfully moved: {}'.format(ticket))
 
@@ -146,7 +149,7 @@ class Categorizer:
         """
         for ticket in update_list:
             self._logger.info('Assigning ticket to Phishtory, CSA: {}'.format(ticket))
-            self.i.ticket_update(ticket, service_id, groupid, eid)
+            self.i.ticket_update(ticket, service_id, groupid, eid, settings.abuse_email_id)
 
     def _email_helper(self, email):
         """
