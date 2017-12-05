@@ -97,10 +97,11 @@ class IrisHelper:
         """
         This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
         stored procedure
-        :param iid:
-        :param serviceid:
-        :param eid:
-        :param groupid:
+        :param iid: supplied
+        :param serviceid: in settings
+        :param eid: in settings
+        :param groupid: in settings
+        :param emailid: in settings
         :return:
         """
 

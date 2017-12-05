@@ -125,10 +125,11 @@ class Categorizer:
     def _move(self, service_id, move_list, groupid, eid, emailid):
         """
         Takes list of tickets to move and calls IRIS DB Stored Procedure to update ticket to new queue
-        :param service_id:
-        :param move_list:
-        :param groupid:
-        :param eid:
+        :param service_id: in settings
+        :param move_list: in settings
+        :param groupid: in settings
+        :param eid: in settings
+        :param emailid: in settings
         :return:
         """
 

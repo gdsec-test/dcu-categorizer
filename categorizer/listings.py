@@ -124,4 +124,4 @@ close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'p
               'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message',
               'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras', 'unsolicited text',
               '0pportunity', 'business opportunity', 'digital specialist', 'intellectuelle', 'whitelist request',
-              'purchase the domain', 'coupon', 'direitos autorais']
+              'purchase the domain', 'buy the domain', 'coupon', 'direitos autorais']
