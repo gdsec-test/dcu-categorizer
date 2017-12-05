@@ -2,8 +2,13 @@ from nose.tools import assert_equal
 from mock import patch
 from categorizer.categorizer import Categorizer
 from categorizer.categorizer import IrisHelper
-
 import logging.handlers
+
+"""
+Recommended settings for testing:
+--with-coverage --cover-package=categorizer --cover-html --cover-erase --nologcapture
+nologcapture avoids suds log dumps into the testing
+"""
 
 
 # SET UP LOGGING
@@ -22,6 +27,10 @@ class TestCategorizer:
         self._cat = Categorizer(_logger)
 
     def test_cleanup(self):
+        """
+        recommended to create dev IRIS tickets and use IIDs and emails in test
+        :return:
+        """
         incidents = {'123456': 'testing@sh.baidu.com',
                      '987654': 'testing@testing.com',
                      '456789': 'testing@peakindustry.com'}
@@ -33,7 +42,10 @@ class TestCategorizer:
         return assert_equal(results, expected)
 
     def test_leomove(self):
-        pass
+        """
+        recommended to create dev IRIS tickets and use IIDs and emails in test
+        :return:
+        """
         incidents = {'1355224': 'testing@rkn.gov.ru',
                      '1355225': 'testing@testing.com'}
 
@@ -43,17 +55,17 @@ class TestCategorizer:
 
         return assert_equal(results, expected)
 
-    @patch.object(IrisHelper, 'note_puller')
-    @patch.object(Categorizer, '_move')
-    def test_categorizer(self, _move, note_puller):
-
-        incidents = {'1355218': 'testing@testing'}
+    def test_categorizer(self):
+        """
+        IRIS tickets created in dev IRIS and IIDs and from email
+        :return:
+        """
+        incidents = {'1355218': 'testing@testing',
+                     '1355212': 'garbage@testing.com'}
 
         results = self._cat.categorize(incidents)
 
-        note_puller.return_value = {'1355218': ('no body phishing test', 'asdfaefefawef')}
-
-        expected = {'malware': [], 'spam': [], 'phishing': ['1355218'], 'close': [], 'netabuse': [],
+        expected = {'malware': [], 'spam': [], 'phishing': ['1355218'], 'close': ['1355212'], 'netabuse': [],
                     'left': []}
 
         return assert_equal(results, expected)
