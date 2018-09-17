@@ -115,13 +115,8 @@ netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attemp
 
 spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:', 'abuse email']
 
-close_keys = ['copyright', 'trademark', 'infringement', 'seo', 'lahjakortti', 'proposal', 'gorakshnath',
-              'pikavipit', 'lainaa', 'defamation', 'lainatarjoukseen', 'attendee', 'attendees', 'promotional',
-              'leads', 'donation', 'sell', 'sale', 'manufacturer', '1st page', 'training', 'loan', 'loans',
-              'black friday', 'purchase domain', 'buy domain', 'buying domain', 'purchase order', 'eyelash',
-              'convention', 'cctv', 'attendance', 'job offer', 'cyber monday', 'prize', 'event ideas', 'led',
-              'lighting', 'supplier', 'supplies', 'order status', 'pcb', 'seminar', 'revamp', 'revamping',
-              'web design', u'\u552E', u'\u544A', 'finance', 'more customers', 'lainahakemuksessa', 'voice message',
-              'quote', 'quotation', 'metal', 'plastic', 'components', 'camera', 'cameras', 'unsolicited text',
-              '0pportunity', 'business opportunity', 'digital specialist', 'intellectuelle', 'whitelist request',
-              'purchase the domain']
+close_keys = ['copyright', 'trademark', 'infringement', 'lahjakortti', 'gorakshnath', 'pikavipit', 'lainaa',
+              'lainatarjoukseen', 'attendee', 'attendees', 'manufacturer', 'black friday', 'eyelash', 'convention',
+              'cctv', 'attendance', 'cyber monday', 'event ideas', 'lighting', 'supplier', 'supplies', 'pcb',
+              'seminar', 'revamp', 'revamping', 'web design', u'\u552E', u'\u544A', 'finance', 'more customers',
+              'lainahakemuksessa', 'quotation', '0pportunity', 'business opportunity', 'intellectuelle']
