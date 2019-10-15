@@ -103,6 +103,9 @@ leodomains = {'essex.pnn.police.uk', 'rkn.gov.ru', 'lapd.lacity.org', 'police.mi
               'ventura.org', 'comcom.govt.nz', 'cityoflewisville.com', 'kohlerpolice.com', 'attorneygeneral.gov',
               'eastdunbarton.gov.uk', 'rsoc.ru', 'royalbijuterii.ro'}
 
+csam_keys = {'child pornography', 'csam', 'csai', 'csem', 'child porn', 'csei', 'child sexual abuse', 'minor',
+             'underage', 'child explicit imagery', 'child abuse'}
+
 phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scammer', 'pishing', 'plishing', 'phising',
               'fraudulent', 'impersonating', 'bank', 'banking', 'former owner', 'previous owner', 'fake login',
               'fincert@cbr.ru']
@@ -110,7 +113,7 @@ phish_keys = ['phishing', 'phish', 'fishing', 'fish', 'scam', 'scammers', 'scamm
 malware_keys = ['malware', 'virus', 'trojan', 'dotz']
 
 netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attempted', 'ssh', 'brute', 'hacking',
-                 'honeypot', 'abusix', 'rogue DNS', 'attack', 'attacks', 'crack', 'hack', 'logon', 'log-on',
+                 'honeypot', 'abusix', 'rogue DNS', 'crack', 'hack', 'logon', 'log-on',
                  'signon', 'sign-on', 'sign-in', 'signin', 'SQL injection']
 
 spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:', 'abuse email']

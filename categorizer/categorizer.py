@@ -85,7 +85,12 @@ class Categorizer:
 
         try:
 
-            phish_cat = self.l.reg_logic(incident_dict, listings.phish_keys)
+            csam_cat = self.l.reg_logic(incident_dict, listings.csam_keys)
+            self._logger.info('CSAM incidents moved: {}'.format(csam_cat[0]))
+            self._move(settings.childabuse_service_id, csam_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
+            buckets['csam'] = csam_cat[0]
+
+            phish_cat = self.l.reg_logic(csam_cat[1], listings.phish_keys)
             self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
             self._move(settings.phish_service_id, phish_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['phishing'] = phish_cat[0]
