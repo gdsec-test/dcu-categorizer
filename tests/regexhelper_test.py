@@ -36,13 +36,6 @@ class TestRegexHelper:
 
         return assert_equal(results, expected)
 
-    def test_spam_summary(self):
-        incident = {'123456': ('fw: get your P177z', 'bad stuff'), '654321': ('phishing report', 'bad stuff')}
-        results = self._reg.reg_logic(incident, lst.spam_keys)
-        expected = (['123456'], {'654321': ('phishing report', 'bad stuff')})
-
-        return assert_equal(results, expected)
-
     def test_csam_body(self):
         incident = {'123456': ('bad things', 'found some phishing but actually its child abuse.'), '654321': ('bad things', 'Found lots of phishing')}
         results = self._reg.reg_logic(incident, lst.csam_keys)
@@ -67,13 +60,6 @@ class TestRegexHelper:
     def test_net_body(self):
         incident = {'123456': ('bad things', 'found some attempted login failures, check the logs.'), '654321': ('bad things', 'Found lots of phishing')}
         results = self._reg.reg_logic(incident, lst.netabuse_keys)
-        expected = (['123456'], {'654321': ('bad things', 'Found lots of phishing')})
-
-        return assert_equal(results, expected)
-
-    def test_spam_body(self):
-        incident = {'123456': ('bad things', 'stop all this SPAM!!'), '654321': ('bad things', 'Found lots of phishing')}
-        results = self._reg.reg_logic(incident, lst.spam_keys)
         expected = (['123456'], {'654321': ('bad things', 'Found lots of phishing')})
 
         return assert_equal(results, expected)

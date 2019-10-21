@@ -105,12 +105,7 @@ class Categorizer:
             self._move(settings.net_service_id, net_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
             buckets['netabuse'] = net_cat[0]
 
-            spam_cat = self.l.reg_logic(net_cat[1], listings.spam_keys)
-            self._logger.info('Spam incidents moved: {}'.format(spam_cat[0]))
-            self._move(settings.spam_service_id, spam_cat[0], settings.csa_group_id, self.eid, settings.abuse_email_id)
-            buckets['spam'] = spam_cat[0]
-
-            close_cat = self.l.reg_logic(spam_cat[1], listings.close_keys)
+            close_cat = self.l.reg_logic(net_cat[1], listings.close_keys)
             self._logger.info('Tickets being closed: {}'.format(close_cat[0]))
             for ticket in close_cat[0]:
                 self.i.ticket_close(ticket)

@@ -9,7 +9,6 @@ class DevelopmentAppConfig():
     phish_service_id = '212'
     mal_service_id = '213'
     net_service_id = '260'
-    spam_service_id = '212' # doesn't exist, set to phishing
     leo_service_id = '215'
     childabuse_service_id = '214'
     notation_user = 'rduran'
@@ -28,7 +27,6 @@ class ProductionAppConfig():
     phish_service_id = '226'
     mal_service_id = '225'
     net_service_id = '232'
-    spam_service_id = '315'
     leo_service_id = '224'
     childabuse_service_id = '221'
     notation_user = 'phishtory'

@@ -116,8 +116,6 @@ netabuse_keys = ['botnet', 'intrusion', 'scan', 'attempted login', 'login attemp
                  'honeypot', 'abusix', 'rogue DNS', 'crack', 'hack', 'logon', 'log-on',
                  'signon', 'sign-on', 'sign-in', 'signin', 'SQL injection']
 
-spam_keys = ['spam', 'spoof', 'spoofed', 'trans.', 'fw:', 'fwd:', 'abuse email']
-
 close_keys = ['copyright', 'trademark', 'infringement', 'lahjakortti', 'gorakshnath', 'pikavipit', 'lainaa',
               'lainatarjoukseen', 'attendee', 'attendees', 'manufacturer', 'black friday', 'eyelash', 'convention',
               'cctv', 'attendance', 'cyber monday', 'event ideas', 'lighting', 'supplier', 'supplies', 'pcb',
