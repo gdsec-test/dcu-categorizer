@@ -37,4 +37,4 @@ class TestCategorizer:
 
         expected = {'987654': 'testing@testing.com'}
 
-        return assert_equal(results, expected)
+        assert_equal(results, expected)

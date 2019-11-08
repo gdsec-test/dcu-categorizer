@@ -3,7 +3,7 @@ import os
 
 class DevelopmentAppConfig():
     pwd = os.getenv('DEVIRISPWD') or 'password'
-    dbstring = 'DRIVER={FreeTDS};SERVER=P3DWSQL07\CSS;DATABASE=iris;UID=N2_d338D4B45D0F445;PWD=' + pwd + ';TDS_VERSION=8.0'
+    dbstring = 'DRIVER={FreeTDS};SERVER=10.32.76.23\\CSS;DATABASE=iris;UID=N2_d338D4B45D0F445;PWD=' + pwd + ';TDS_VERSION=8.0'
     wsdl_url = 'https://iris-ws.dev.int.godaddy.com/iriswebService.asmx?WSDL'
     abuse_service_id = '220'
     phish_service_id = '212'
@@ -15,9 +15,10 @@ class DevelopmentAppConfig():
     phishstory_eid = '15550'
     ds_abuse_group_id = '489'
     csa_group_id = '510'
-    dcu_group_id = '489' # doesn't exist, using DS Abuse
+    dcu_group_id = '489'  # doesn't exist, using DS Abuse
     leo_email_id = '391'
     abuse_email_id = '1256'
+
 
 class ProductionAppConfig():
     pwd = os.getenv('IRISPWD') or 'password'
@@ -36,6 +37,7 @@ class ProductionAppConfig():
     dcu_group_id = '409'
     leo_email_id = '391'
     abuse_email_id = '1256'
+
 
 config_by_name = {'dev': DevelopmentAppConfig,
                   'prod': ProductionAppConfig
