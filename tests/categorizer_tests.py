@@ -1,28 +1,13 @@
 from nose.tools import assert_equal
+
 from categorizer.categorizer import Categorizer
-import logging.handlers
-
-"""
-Recommended settings for testing:
---with-coverage --cover-package=categorizer --cover-html --cover-erase --nologcapture
-nologcapture avoids suds log dumps into the testing
-"""
-
-
-# SET UP LOGGING
-
-log_handler = logging.handlers.RotatingFileHandler(filename='categorizer.log', backupCount=5, maxBytes=5 * 1024 * 1024)
-formatter = logging.Formatter("[%(levelname)s:%(asctime)s:%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s")
-log_handler.setFormatter(formatter)
-_logger = logging.getLogger(__name__)
-_logger.addHandler(log_handler)
-_logger.setLevel(logging.INFO)
+from settings import config_by_name
 
 
 class TestCategorizer:
 
     def __init__(self):
-        self._cat = Categorizer(_logger)
+        self._cat = Categorizer(config_by_name['test']())
 
     def test_cleanup(self):
         """
@@ -34,7 +19,6 @@ class TestCategorizer:
                      '456789': 'testing@peakindustry.com'}
 
         results = self._cat.cleanup(incidents)
-
         expected = {'987654': 'testing@testing.com'}
 
         assert_equal(results, expected)

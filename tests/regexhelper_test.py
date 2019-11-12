@@ -1,6 +1,7 @@
 from nose.tools import assert_equal
-from categorizer.regex_helper import ListHelper
+
 import categorizer.listings as lst
+from categorizer.regex_helper import ListHelper
 
 
 class TestRegexHelper:

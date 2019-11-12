@@ -1,72 +1,75 @@
+import logging
+
 import pyodbc
-import os
 import suds.client
 import suds.sax.text
-from settings import config_by_name
 import xmltodict
-
-settings = config_by_name[os.getenv('sysenv') or 'dev']
 
 
 class IrisHelper:
 
-    def __init__(self, logger):
-        self.dbstring = settings.dbstring
-        self._logger = logger
-        # connection to DB server
+    closed_note = 'This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@'
+
+    def __init__(self, app_settings):
+        self._logger = logging.getLogger(__name__)
+
+        self._group_id = app_settings.ds_abuse_group_id
+        self._service_id = app_settings.abuse_service_id
+        self._phishstory_eid = app_settings.phishstory_eid
+        self._notation_user = app_settings.notation_user
+
         try:
-            self.cnxn = pyodbc.connect(self.dbstring)
+            self.cnxn = pyodbc.connect(app_settings.dbstring, autocommit=True)
         except Exception as e:
             self._logger.error('Connection to IRIS DB failed: {}'.format(e))
 
-        self._client = suds.client.Client(settings.wsdl_url)
-        self.closed_note = "This ticket has been closed by DCU-ENG automation as unworkable. Questions to hostsec@"
+        try:
+            self._client = suds.client.Client(app_settings.IRIS_WSDL)
+        except Exception as e:
+            self._logger.error('Connection to IRIS WSDL failed: {}'.format(e))
 
     def data_pull(self):
         """
-        pulls IID and summary line from all open tickets in IRIS Abuse@ queue
+        Pulls IID and summary line from all open tickets in IRIS Abuse@ queue
         :return:
         """
-        group_id = settings.ds_abuse_group_id
-        service_id = settings.abuse_service_id
 
         query = 'SELECT TOP 200 iris_incidentID, OriginalEmailAddress FROM [iris].[dbo].[IRISIncidentMain] ' \
                 'WITH(NOLOCK) ' \
-                'WHERE iris_groupID = ' + group_id + ' AND iris_serviceID = ' + service_id + ' ' \
+                'WHERE iris_groupID = ' + self._group_id + ' AND iris_serviceID = ' + self._service_id + ' ' \
                 'AND iris_employeeID = 0 and iris_statusID = 1 ' \
                 'ORDER BY createDate'
 
         return self._iris_db_connect(query)
 
-    def ticket_close(self, incident):
+    def close_ticket(self, incident):
         """
-        closes tickets with note stating unworkable ticket
+        Closes tickets with note stating unworkable ticket
         phishtory
         :param incident:
         :return:
         """
-        phishstory_employee_id = 15550
+
         try:
             self._client.service.AddIncidentNote(
                 int(incident),
-                self.closed_note.format(), settings.notation_user)
+                self.closed_note, self._notation_user)
             self._client.service.QuickCloseIncident(
                 int(incident),
-                phishstory_employee_id, )
+                self._phishstory_eid, )
         except Exception as e:
-            self._logger.error("Auto Close failed on IID: {}, {}".format(incident, e))
+            self._logger.error('Auto Close failed on IID: {}: {}'.format(incident, e))
 
-    def note_puller(self, iid):
+    def get_notes(self, iid):
         """
         Retrieves notes from ticket using SOAP call to IRIS Webservice
         :param iid: IRIS Incident ID
         :return:
         """
 
-        self._logger.info('Gathering info for: %s', iid)
+        self._logger.info('Gathering info for: {}'.format(iid))
 
-        xml_string = suds.sax.text.Raw("<ns0:IncidentId>" + str(iid) +
-                                       "</ns0:IncidentId>")
+        xml_string = suds.sax.text.Raw('<ns0:IncidentId>' + str(iid) + '</ns0:IncidentId>')
 
         try:
             incident_info = dict(self._client.service.GetIncidentInfoByIncidentId(xml_string))
@@ -93,7 +96,7 @@ class IrisHelper:
 
         return email, subject, note
 
-    def ticket_update(self, iid, serviceid, groupid, eid, emailid):
+    def update_ticket(self, iid, serviceid, groupid, eid, emailid):
         """
         This function is designed to take in an IRIS Incident ID and a Service ID to move the IID too using an IRIS DB
         stored procedure
@@ -113,7 +116,6 @@ class IrisHelper:
         SELECT @b_checkdatepass AS the_output;"""
 
         params = (iid, serviceid, groupid, eid, emailid)
-
         self._iris_db_connect(query, params)
 
     def _iris_db_connect(self, query, params=None):
@@ -124,8 +126,6 @@ class IrisHelper:
         :return:
         """
 
-        self.cnxn.autocommit = True
-        self.cnxn.timeout = 0
         cursor = self.cnxn.cursor()
         query = query.strip()
         if params:
