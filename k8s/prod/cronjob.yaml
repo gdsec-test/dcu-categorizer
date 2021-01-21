@@ -51,13 +51,3 @@ spec:
                     secretKeyRef:
                       name: db-categorizer
                       key: password
-                - name: VPS4_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: auth-vps4-api
-                      key: username
-                - name: VPS4_PASSWORD
-                    valueFrom:
-                      secretKeyRef:
-                        name: auth-vps4-api
-                        key: password

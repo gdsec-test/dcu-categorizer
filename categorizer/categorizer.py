@@ -3,7 +3,6 @@ import logging
 import listings
 from iris_helper import IrisHelper
 from regex_helper import ListHelper
-from email_classifier import EmailClassifier
 
 
 class Categorizer:
@@ -32,8 +31,6 @@ class Categorizer:
         # Email IDs
         self.abuse_email_id = app_settings.abuse_email_id
         self.leo_email_id = app_settings.leo_email_id
-
-        self.classifier = EmailClassifier(app_settings.vps4_user, app_settings.vps4_password)
 
     def cleanup(self, incidents):
         """
@@ -99,72 +96,35 @@ class Categorizer:
             incident_dict[iid] = (subject, body)
 
         try:
-            for incident, (subject, body) in incident_dict.items():
-                response = self.classifier.get_prediction((subject, body))
+            csam_cat = self._list_helper.reg_logic(incident_dict, listings.csam_keys)
+            self._logger.info('CSAM incidents moved: {}'.format(csam_cat[0]))
+            self._move(self.childabuse_service_id, csam_cat[0], self.dcu_group, self.eid, self.abuse_email_id)
+            buckets['csam'] = csam_cat[0]
 
-                prediction = response["prediction"]
-                if response["confidences"][prediction] < 0.9108867987360374:
-                    close_cat = [incident]
-                    self._logger.info('Tickets being closed: {}'.format(close_cat))
-                    for ticket in close_cat:
-                        self._iris_helper.close_ticket(ticket)
-                    buckets['close'] = close_cat
+            phish_cat = self._list_helper.reg_logic(csam_cat[1], listings.phish_keys)
+            self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
+            self._move(self.phish_service_id, phish_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
+            buckets['phishing'] = phish_cat[0]
 
-                    self.leftovers(self.abuse_id, close_cat, self.abuse_group, self.eid)
-                    self._logger.info('Leftover tickets: {}'.format(close_cat))
-                    buckets['left'] = close_cat
-                elif prediction == "NETABUSE_EMAIL":
-                    net_cat = [incident]
-                    self._logger.info('Netabuse incidents moved: {}'.format(net_cat))
-                    self._move(self.net_service_id, net_cat, self.csa_group_id, self.eid, self.abuse_email_id)
-                    buckets['netabuse'] = net_cat
-                elif prediction == "MALWARE_EMAIL":
-                    mal_cat = [incident]
-                    self._logger.info('Malware incidents moved: {}'.format(mal_cat))
-                    self._move(self.mal_service_id, mal_cat, self.csa_group_id, self.eid, self.abuse_email_id)
-                    buckets['malware'] = mal_cat
-                elif prediction == "PHISHING_EMAIL":
-                    phish_cat = [incident]
-                    self._logger.info('Phishing incidents moved: {}'.format(phish_cat))
-                    self._move(self.phish_service_id, phish_cat, self.csa_group_id, self.eid, self.abuse_email_id)
-                    buckets['phishing'] = phish_cat
-                elif prediction == "CSAM_EMAIL":
-                    csam_cat = [incident]
-                    self._logger.info('CSAM incidents moved: {}'.format(csam_cat))
-                    self._move(self.childabuse_service_id, csam_cat, self.dcu_group, self.eid, self.abuse_email_id)
-                    buckets['csam'] = csam_cat
+            mal_cat = self._list_helper.reg_logic(phish_cat[1], listings.malware_keys)
+            self._logger.info('Malware incidents moved: {}'.format(mal_cat[0]))
+            self._move(self.mal_service_id, mal_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
+            buckets['malware'] = mal_cat[0]
 
+            net_cat = self._list_helper.reg_logic(mal_cat[1], listings.netabuse_keys)
+            self._logger.info('Netabuse incidents moved: {}'.format(net_cat[0]))
+            self._move(self.net_service_id, net_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
+            buckets['netabuse'] = net_cat[0]
 
+            close_cat = self._list_helper.reg_logic(net_cat[1], listings.close_keys)
+            self._logger.info('Tickets being closed: {}'.format(close_cat[0]))
+            for ticket in close_cat[0]:
+                self._iris_helper.close_ticket(ticket)
+            buckets['close'] = close_cat[0]
 
-            # csam_cat = self._list_helper.reg_logic(incident_dict, listings.csam_keys)
-            # self._logger.info('CSAM incidents moved: {}'.format(csam_cat[0]))
-            # self._move(self.childabuse_service_id, csam_cat[0], self.dcu_group, self.eid, self.abuse_email_id)
-            # buckets['csam'] = csam_cat[0]
-
-            # phish_cat = self._list_helper.reg_logic(csam_cat[1], listings.phish_keys)
-            # self._logger.info('Phishing incidents moved: {}'.format(phish_cat[0]))
-            # self._move(self.phish_service_id, phish_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
-            # buckets['phishing'] = phish_cat[0]
-
-            # mal_cat = self._list_helper.reg_logic(phish_cat[1], listings.malware_keys)
-            # self._logger.info('Malware incidents moved: {}'.format(mal_cat[0]))
-            # self._move(self.mal_service_id, mal_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
-            # buckets['malware'] = mal_cat[0]
-
-            # net_cat = self._list_helper.reg_logic(mal_cat[1], listings.netabuse_keys)
-            # self._logger.info('Netabuse incidents moved: {}'.format(net_cat[0]))
-            # self._move(self.net_service_id, net_cat[0], self.csa_group_id, self.eid, self.abuse_email_id)
-            # buckets['netabuse'] = net_cat[0]
-
-            # close_cat = self._list_helper.reg_logic(net_cat[1], listings.close_keys)
-            # self._logger.info('Tickets being closed: {}'.format(close_cat[0]))
-            # for ticket in close_cat[0]:
-            #     self._iris_helper.close_ticket(ticket)
-            # buckets['close'] = close_cat[0]
-            #
-            # self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
-            # self._logger.info('Leftover tickets: {}'.format(close_cat[1].keys()))
-            # buckets['left'] = close_cat[1].keys()
+            self.leftovers(self.abuse_id, close_cat[1], self.abuse_group, self.eid)
+            self._logger.info('Leftover tickets: {}'.format(close_cat[1].keys()))
+            buckets['left'] = close_cat[1].keys()
 
         except Exception as e:
             self._logger.error('Unable to complete Categorizer: {}'.format(e.message))
