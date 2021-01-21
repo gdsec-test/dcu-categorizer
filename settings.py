@@ -47,6 +47,8 @@ class DevelopmentAppConfig(AppConfig):
     ds_abuse_group_id = '489'
     csa_group_id = '510'
     dcu_group_id = '489'  # doesn't exist, using DS Abuse
+    vps4_user = os.getenv("VPS4_USER")
+    vps4_password = os.getenv("VPS4_PASSWORD")
 
     def __init__(self):
         super(DevelopmentAppConfig, self).__init__()
@@ -67,6 +69,8 @@ class ProductionAppConfig(AppConfig):
     ds_abuse_group_id = '411'
     csa_group_id = '443'
     dcu_group_id = '409'
+    vps4_user = os.getenv("VPS4_USER")
+    vps4_password = os.getenv("VPS4_PASSWORD")
 
     def __init__(self):
         super(ProductionAppConfig, self).__init__()
