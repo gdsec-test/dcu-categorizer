@@ -28,11 +28,18 @@ spec:
           restartPolicy: OnFailure
           imagePullSecrets:
             - name: dcu-artifactory-creds
-
+          volumes:
+            - name: categorizer-ssl
+              secret:
+                secretName: tls-categorizer
           containers:
             - name: categorizer
               imagePullPolicy: Always
               image: docker-dcu-local.artifactory.secureserver.net/categorizer:REPLACE_WITH_GIT_COMMIT
+              volumeMounts:
+                - mountPath: "/etc/categorizer/ssl"
+                  name: categorizer-ssl
+                  readOnly: true
               env:
                 - name: sysenv
                   value: prod
@@ -40,7 +47,10 @@ spec:
                   value: THIS_STRING_IS_REPLACED_DURING_BUILD
                 - name: LOG_CFG
                   value: logging.yaml
-
+                - name: CATEGORIZER_KEY
+                  value: /etc/categorizer/ssl/tls.key
+                - name: CATEGORIZER_CERT
+                  value: /etc/categorizer/ssl/tls.crt
                 - name: IRIS_USERNAME
                   valueFrom:
                     secretKeyRef:
@@ -50,4 +60,14 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: db-categorizer
+                      key: password
+                - name: CATEGORIZER_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: auth-categorizer
+                      key: username
+                - name: CATEGORIZER_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: auth-categorizer
                       key: password
